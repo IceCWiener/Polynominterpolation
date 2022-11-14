@@ -42,11 +42,15 @@ for i in x:
 def calcA(x, y):
     n = len(y)
     a = np.zeros([n,n]) # erstellt ein n mal n großes Array gefüllt mit 0
+    b = np.zeros([n,n]) # erstellt ein n mal n großes Array gefüllt mit 0
 
     for i in range(n):
-        a[0, i] = y[i]
+        a[i, 0] = y[i]
+
+    b[:, 0] = y
 
     print(a)
+    print(b)
 
 
 # main
