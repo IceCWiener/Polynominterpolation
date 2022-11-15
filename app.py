@@ -1,5 +1,6 @@
 import os
 import easygui
+from hermite import Hermite
 
 
 def newton():
@@ -19,21 +20,27 @@ def hermite():
 
 
 def menu():
-    print("Please enter 1, 2 3 to choose an option: ")
+    print("Bitte 1. x-Wert angeben: ")
+    input1 = input()
+    print("Bitte 1. y-Wert angeben: ")
+    input2 = input()
 
-    print("1) Newton \n2) Hermite \n3) Exit")
+    print("Bitte nochmal den 1. x-Wert angeben: ")
+    input3 = input()
+
+    print("Bitte die Ableitung an Stelle x0 angeben: ")
+    input4 = input()
+
+    print("Bitte 2. x-Wert angeben: ")
+    input5 = input()
+    print("Bitte 2. y-Wert angeben: ")
+    input6 = input()
+
+    print("Bitte 1 angeben, wenn hermite, also 2 gleiche Stützstellen hintereinander kommen: ")
     userInput = input()
-
-    if userInput == "1":
-        newton()
-
-    if userInput == "2":
-        hermite()
-
-    if userInput == "3":
-        print("Goodbye :)")
-        exit()
-
+    if (userInput == "1"):
+        local_hermite = Hermite(input1, input2, input3, input4, input5, input6)
+        print(local_hermite)
 
 if __name__ == '__main__':
     menu()
