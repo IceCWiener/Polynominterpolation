@@ -24,7 +24,6 @@ def input_table():
     input_table = []
     i = 0
     while i < 3:
-        print(input_table)
         print("Bitte einen x-Wert angeben: ")
         input_table.append(tuple([input(), ]))
         print(input_table)
