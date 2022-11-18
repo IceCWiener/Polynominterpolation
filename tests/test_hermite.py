@@ -1,5 +1,5 @@
 import unittest
-from hermite import Hermite
+from hermite_model import Hermite
 
 
 class TestHermite(unittest.TestCase):

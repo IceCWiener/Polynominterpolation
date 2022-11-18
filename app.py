@@ -1,5 +1,5 @@
 import os
-from hermite import Hermite
+from hermite_model import Hermite
 
 
 def menu():
