@@ -1,12 +1,13 @@
 import math
 
+
 class Hermite:
-    def __init__(self, stuetzstellen):
+    def __init__(self, sampling_points_list):
+        self.sampling_points_list = sampling_points_list
         """self.xWerte = xWerte
         self.yWerte = yWerte
         self.multiplikatoren = []"""
 
-    # Funktion die den Ableitungsgrad der Stützstellen erkennt
     def ableitungsGradErkennen(self, x):
         ableitungsgrad = 1
 
@@ -19,33 +20,48 @@ class Hermite:
                     x - 1
         return ableitungsgrad
 
+    def divided_differences(self):
+        multipliers = []
 
-    # Funktion für die Dividirten Differenzen
-    def dividierteDifferenzen(self, xListe, yListe):
-        multiplikatoren = []
-
+        multipliers.append(self.sampling_points_list[0][1])
         k = 0
-        for element in xListe:
-            if xListe[k + 1] - xListe[k] == 0:  # wenn durch 0 geteilt würde
-                multiplikatoren.append(yListe[k + 1] / math.factorial(self.ableitungsGradErkennen(len(xListe[0:k + 1]))))
+        # liste der x werte (1. wert des tupels)
+        # liste der y werte (2. wert des tupels)
+            # wird durch null geteilt? -> wenn x wert an stelle k = x wert an stelle k-1,
+            # ja: dann in y liste der funktios-wert nicht ableitung, der eingegeben wurde
+            # und wir brauchen die Ordnung der Ableitung
+
+        for i in range(len(self.sampling_points_list)-1):
+            if self.would_divide_by_zero([self.sampling_points_list[i], self.sampling_points_list[i + 1]]):
+                print(1)
+                 #multipliers.append(y_liste[k + 1] / math.factorial(self.ableitungsGradErkennen(len(x_list[0:k + 1]))))
             else:
-                multiplikatoren.append((yListe[k + 1] - yListe[k]) / (xListe[k + 1] - xListe[k]))
+                print(1)
+                #generate_multiplier()
+                #multipliers.append((y_liste[k + 1] - y_liste[k]) / (x_list[k + 1] - x_list[k]))
 
-            k += 1
+            #k += 1
 
-        """
-        while k <= len(xWerte) - 1:
-            if xWerte[k + 1] - xWerte[k] == 0:  # wenn durch 0 geteilt würde
-                Multiplikatoren.append(yWerte[k + 1] / math.factorial(ableitungsGradErkennen(len(xWerte[0:k + 1]))))
-            else:
-                Multiplikatoren.append((yWerte[k + 1] - yWerte[k]) / (xWerte[k + 1] - xWerte[k]))
+        return multipliers
 
-            k += 1
-        """
-        print(multiplikatoren)
-        return multiplikatoren
+    def generate_multiplier(self, tuple1, tuple2):
+        return (tuple2[1] - tuple1[1]) / (tuple2[0] - tuple1[0])
 
-    def polynomErstellen(self, stuetzstellen):
-        polynom = None
+    def generate_coordinates_list(self, sampling_points_list):
+        #@nina
+        coordinates_list = []
+        for i in range(len(self.sampling_points_list)-1):
+            print("we are awesome")
+            # vegleiche x wert an stelle i+1 mit x wert an stelle i
+            # wenn identisch, packe in koordinatenliste den x wert + y wert an stelle i
+        return []
 
-        return polynom
+
+    ## funktion ausmultiplizieren @mali
+
+    def would_divide_by_zero(self, sampling_points):
+        return (sampling_points[1][0] - sampling_points[0][0]) == 0
+
+    def create_polynom(self):
+        #self.divided_differences()
+        return "polynom"
