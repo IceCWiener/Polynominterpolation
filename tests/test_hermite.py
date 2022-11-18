@@ -41,12 +41,11 @@ class TestHermite(unittest.TestCase):
         self.assertEqual(expected, result)
 
     def test_should_return_coordinate_list(self):
-        sampling_points_list = [(1, 1), (1, 4)]
+        sampling_points_list = [(1, 1), (1, 4), (2, 3)]
         hermite = Hermite(sampling_points_list)
-        expected = [(1, 1), (1, 1)]
-        result = hermite.generate_coordinates_list(sampling_points_list)
+        expected = [(1, 1), (1, 1), (2, 3)]
+        result = hermite.generate_coordinates_list()
         self.assertEqual(expected, result)
-
 
 
 if __name__ == '__main__':

@@ -47,20 +47,21 @@ class Hermite:
     def generate_multiplier(self, tuple1, tuple2):
         return (tuple2[1] - tuple1[1]) / (tuple2[0] - tuple1[0])
 
-    def generate_coordinates_list(self, sampling_points_list):
-        #@nina
+    def generate_coordinates_list(self):
         coordinates_list = []
-        for i in range(len(self.sampling_points_list)-1):
-            print("we are awesome")
+        for i in range(len(self.sampling_points_list)):
+            coordinates_list.append((self.sampling_points_list[i][0], self.sampling_points_list[i][1]))
+
             # vegleiche x wert an stelle i+1 mit x wert an stelle i
             # wenn identisch, packe in koordinatenliste den x wert + y wert an stelle i
-        return []
+        return coordinates_list
 
 
     ## funktion ausmultiplizieren @mali
 
     def would_divide_by_zero(self, sampling_points):
         return (sampling_points[1][0] - sampling_points[0][0]) == 0
+
 
     def create_polynom(self):
         #self.divided_differences()
