@@ -1,40 +1,40 @@
 import os
-import easygui
 
-
-def newton():
-    msg = "lädt..."
-    title = "Interpolation - Numerische Algorithmen"
-    choices = ["Test1", "Test2", "PuTTY"]
-    reply = easygui.buttonbox(msg,  title, choices=choices)
-
-    if reply == "PuTTY":
-        os.system("putty")
-    else:
-        print("done")
-
-
-def hermite():
-    print("selected hermite")
+polynom = None
+sampling_points = []
+hermite_var = False
 
 
 def menu():
-    print("Please enter 1, 2 3 to choose an option: ")
+    i = 0
+    while True:
+        if i != 0:
+            cancel = input("möchten Sie eine " + str(
+                i + 1) + "te Stützstelle eingeben bitte Enter drücken, andernfalls geben sie n ein: ")
+            if cancel == "n":
+                break
+        sampling_point = (int(input("Bitte X-wert der " + str(i + 1) + "ten Stützstelle eingeben: ")),
+                        int(input("Bitte Y-wert der " + str(i + 1) + "ten Stützstelle eingeben: ")))
+        sampling_points_list.append(sampling_point)
+        i += 1
 
-    print("1) Newton \n2) Hermite \n3) Exit")
-    userInput = input()
+    for Xn in range(len(sampling_points_list) - 1):
+        print(Xn)
+        xy1 = sampling_points_list[Xn]
+        xy2 = sampling_points_list[Xn + 1]
+        if xy2[0] == xy1[0]:
+            hermite_var = True
+            print("wir machen Hermit")
+            # polynom = Hermite()
+            # polynom.create_polynom(sampling_points_list)
+            break
+        elif hermite_var == False and Xn == len(sampling_points_list) - 2:
+            print("wir machen Newton und Lagrange")
 
-    if userInput == "1":
-        newton()
-
-    if userInput == "2":
-        hermite()
-
-    if userInput == "3":
-        print("Goodbye :)")
-        exit()
-
+    print(stuetzstellenListe)
 
 if __name__ == '__main__':
     menu()
+
+
 
