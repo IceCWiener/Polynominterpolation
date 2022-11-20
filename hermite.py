@@ -19,7 +19,7 @@ class Hermite:
 
     def get_multipliers(self):
         multipliers = []
-        coordinates_list = self.set_coordinates_list()
+        self.set_coordinates_list()
 
         for i in range(len(self.coordinates_list)):
             if i == 0:
@@ -28,10 +28,10 @@ class Hermite:
 
         return multipliers
 
-    def get_multiplier(self, coordinate1, coordinate2):
-        if self.would_divide_by_zero(coordinate1, coordinate2):
+    def get_multiplier(self, tuple1, tuple2):
+        if self.is_same_x_value(tuple1, tuple2):
             return 4.0
-        return (coordinate2[1] - coordinate1[1]) / (coordinate2[0] - coordinate1[0])
+        return (tuple2[1] - tuple1[1]) / (tuple2[0] - tuple1[0])
 
     def set_coordinates_list(self):
         for i in range(len(self.sampling_points_list)):
@@ -42,7 +42,8 @@ class Hermite:
                 coordinate.set_y(self.coordinates_list[i-1].get_y())
                 coordinate.set_derivative(self.sampling_points_list[i][1], 1)
 
-    def get_coordinates_as_list_of_tuples(self):
+    def get_coordinates_list_as_list_of_tuples(self):
+        self.set_coordinates_list()
         tuple_list = []
         for coordinate in self.coordinates_list:
             tuple_list.append(coordinate.get_coordinate_tuple())
@@ -50,11 +51,11 @@ class Hermite:
 
     def get_coordinates_list(self):
         self.set_coordinates_list()
-        return self.get_coordinates_as_list_of_tuples()
+        return self.coordinates_list
 
     ## funktion ausmultiplizieren @mali
 
-    def would_divide_by_zero(self, tuple1, tuple2):
+    def is_same_x_value_2(self, tuple1, tuple2):
         return (tuple2[0] - tuple1[0]) == 0
 
     def is_same_x_value(self, coordinate1, coordinate2):
