@@ -1,19 +1,19 @@
 import os
-from hermite_model import Hermite
+from hermite import Hermite
 
 
-def menu():
+def collect_sampling_points(self):
     sampling_points_list = []
     hermite_var = False
     i = 0
     while True:
         if i != 0:
-            cancel = input("möchten Sie eine " + str(
+            check_if_wants_to_cancel = input("möchten Sie eine " + str(
                 i + 1) + "te Stützstelle eingeben bitte Enter drücken, andernfalls geben sie n ein: ")
-            if cancel == "n":
+            if check_if_wants_to_cancel == "n":
                 break
         sampling_point = (int(input("Bitte X-wert der " + str(i + 1) + "ten Stützstelle eingeben: ")),
-                        int(input("Bitte Y-wert der " + str(i + 1) + "ten Stützstelle eingeben: ")))
+                          int(input("Bitte Y-wert der " + str(i + 1) + "ten Stützstelle eingeben: ")))
         sampling_points_list.append(sampling_point)
         i += 1
 
@@ -34,7 +34,7 @@ def menu():
 
 
 if __name__ == '__main__':
-    menu()
+    collect_sampling_points()
 
 
 

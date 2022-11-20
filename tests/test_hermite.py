@@ -1,5 +1,5 @@
 import unittest
-from hermite_model import Hermite
+from hermite import Hermite
 
 
 class TestHermite(unittest.TestCase):
@@ -44,7 +44,7 @@ class TestHermite(unittest.TestCase):
         sampling_points_list = [(1, 1), (1, 4), (2, 3)]
         hermite = Hermite(sampling_points_list)
         expected = [(1, 1), (1, 1), (2, 3)]
-        result = hermite.generate_coordinates_list()
+        result = hermite.generate_coordinate_list()
         self.assertEqual(expected, result)
 
 
