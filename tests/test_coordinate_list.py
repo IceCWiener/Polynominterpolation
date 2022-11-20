@@ -7,7 +7,7 @@ class TestCoordinateList(unittest.TestCase):
     # def test_should_return_coordinate_list(self):
     #     expected = []
     #     result = app.collect_sampling_points()
-    #     self.assertEqual(result, expected)
+    #     self.assertEqual(expected, result)
 
     def test_should_return_tuple_of_coordinate(self):
         coordinate = Coordinate(2, 3)
@@ -24,25 +24,25 @@ class TestCoordinateList(unittest.TestCase):
         coordinate.set_derivative(3, 2)
         expected = [(4, 1), (3, 2)]
         result = coordinate.get_derivatives()
-        self.assertEqual(result, expected)
+        self.assertEqual(expected, result)
 
     def test_should_return_coordinate_list(self):
         user_input = [(1, 1), (1, 4)]
         expected = [(1, 1), (1, 1)]
         coordinate_list = CoordinateList(user_input)
         result = coordinate_list.get_coordinates()
-        self.assertEqual(result, expected)
+        self.assertEqual(expected, result)
 
     def test_should_return_coordinate_list_with_three_elements(self):
         user_input = [(1, 1), (1, 4), (7, 8)]
         expected = [(1, 1), (1, 1), (7, 8)]
         coordinate_list = CoordinateList(user_input)
         result = coordinate_list.get_coordinates()
-        self.assertEqual(result, expected)
+        self.assertEqual(expected, result)
 
     def test_should_return_coordinate_list_with_four_elements(self):
         user_input = [(-2, 6), (3, -5), (7, 8)]
         expected = [(-2, 6), (3, -5), (7, 8)]
         coordinate_list = CoordinateList(user_input)
         result = coordinate_list.get_coordinates()
-        self.assertEqual(result, expected)
+        self.assertEqual(expected, result)
