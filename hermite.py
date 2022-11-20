@@ -10,7 +10,7 @@ class Hermite:
     # def ableitungsGradErkennen(self, x):
     #     ableitungsgrad = 1
     #
-    #     while True:  # mit for element in range(...) umwandeln https://www.youtube.com/watch?v=pQh5Idw2sKM&list=PL_pqkvxZ6ho3u8PJAsUU-rOAQ74D0TqZB&index=17
+    #     while True:  # mit for element in range(...)
     #         if x == 1:
     #             break
     #         else:
@@ -23,9 +23,9 @@ class Hermite:
         multipliers = []
         self.set_coordinates_list()
 
-        for i in range(len(self.coordinates_list)):
+        for i in range(len(self.sampling_points_list)-1):
             if i == 0:
-                multipliers.append(self.coordinates_list[0].get_y())
+                multipliers.append(float(self.coordinates_list[0].get_y()))
             multipliers.append(self.get_multiplier(self.coordinates_list[i], self.coordinates_list[i - 1]))
 
         return multipliers
@@ -67,4 +67,5 @@ class Hermite:
 
     def create_polynom(self):
         #self.divided_differences()
-        return "polynom"
+        # multipliers = self.get_multipliers()
+        return " "
