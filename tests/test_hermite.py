@@ -86,19 +86,30 @@ class TestHermite(unittest.TestCase):
         result = hermite.get_multiplier(coordinate_list[0], coordinate_list[1])
         self.assertEqual(expected, result)
 
-    # def test_should_return_multiplier_when_division_by_zero(self):
-    #     sampling_points = [(1, 1), (1, 4)]
-    #     hermite = Hermite(sampling_points)
-    #     coordinate_list = hermite.get_coordinates_list()
-    #     expected = 4
-    #     result = hermite.get_multiplier(coordinate_list[0], coordinate_list[1])
-    #     self.assertEqual(expected, result)
+    def test_should_return_multiplier_when_division_by_zero(self):
+        sampling_points = [(1, 1), (1, 4)]
+        hermite = Hermite(sampling_points)
+        hermite.set_coordinates_list()
+        coordinate_list = hermite.get_coordinates_list()
+        print(999, hermite.get_coordinates_list()[1].get_derivative())
+        result = hermite.get_multiplier(coordinate_list[0], coordinate_list[1])
+        expected = 4.0
+        self.assertEqual(expected, result)
 
     def test_should_return_coordinate_list_with_correct_derivatives(self):
         sampling_points = [(1, 1), (1, 4)]
         hermite = Hermite(sampling_points)
         hermite.set_coordinates_list()
         expected = 4
+        second_coordinate = hermite.get_coordinates_list()[1]
+        result = second_coordinate.get_derivative()[0]
+        self.assertEqual(expected, result)
+
+    def test_should_return_coordinate_list_with_correct_derivatives_2(self):
+        sampling_points = [(2, 7), (2, -100)]
+        hermite = Hermite(sampling_points)
+        hermite.set_coordinates_list()
+        expected = -100
         second_coordinate = hermite.get_coordinates_list()[1]
         result = second_coordinate.get_derivative()[0]
         self.assertEqual(expected, result)

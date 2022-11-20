@@ -32,9 +32,8 @@ class Hermite:
 
     def get_multiplier(self, coordinate1, coordinate2):
         if self.is_same_x_value(coordinate1, coordinate2):
-            derivative_value = coordinate1.get_derivatives()[0][0]
-            print(derivative_value)
-            derivative_order = coordinate1.get_derivatives()[0][1]
+            derivative_value = coordinate1.get_derivative()[0]
+            derivative_order = coordinate1.get_derivative()[1]
             return derivative_value / math.factorial(derivative_order)
         return (coordinate2.get_y() - coordinate1.get_y()) / (coordinate2.get_x() - coordinate1.get_x())
 
@@ -47,6 +46,7 @@ class Hermite:
                 coordinate.set_x(self.coordinates_list[i-1].get_x())
                 coordinate.set_y(self.coordinates_list[i-1].get_y())
                 coordinate.set_derivative(self.sampling_points_list[i][1], 1)
+                self.coordinates_list[i-1].set_derivative(self.sampling_points_list[i][1], 1)
 
     def get_coordinates_list_as_list_of_tuples(self):
         tuple_list = []
