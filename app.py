@@ -1,8 +1,7 @@
-import os
 from hermite import Hermite
 
 
-def collect_sampling_points(self):
+def collect_sampling_points():
     sampling_points_list = []
     hermite_var = False
     i = 0
