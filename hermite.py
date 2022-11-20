@@ -1,3 +1,5 @@
+import math
+
 from coordinate import Coordinate
 
 class Hermite:
@@ -28,29 +30,31 @@ class Hermite:
 
         return multipliers
 
-    def get_multiplier(self, tuple1, tuple2):
-        if self.is_same_x_value(tuple1, tuple2):
-            return 4.0
-        return (tuple2[1] - tuple1[1]) / (tuple2[0] - tuple1[0])
+    def get_multiplier(self, coordinate1, coordinate2):
+        if self.is_same_x_value(coordinate1, coordinate2):
+            derivative_value = coordinate1.get_derivatives()[0][0]
+            print(derivative_value)
+            derivative_order = coordinate1.get_derivatives()[0][1]
+            return derivative_value / math.factorial(derivative_order)
+        return (coordinate2.get_y() - coordinate1.get_y()) / (coordinate2.get_x() - coordinate1.get_x())
 
     def set_coordinates_list(self):
         for i in range(len(self.sampling_points_list)):
             coordinate = Coordinate(self.sampling_points_list[i][0], self.sampling_points_list[i][1])
             self.coordinates_list.append(coordinate)
+
             if self.is_same_x_value(self.coordinates_list[i], self.coordinates_list[i-1]):
                 coordinate.set_x(self.coordinates_list[i-1].get_x())
                 coordinate.set_y(self.coordinates_list[i-1].get_y())
                 coordinate.set_derivative(self.sampling_points_list[i][1], 1)
 
     def get_coordinates_list_as_list_of_tuples(self):
-        self.set_coordinates_list()
         tuple_list = []
         for coordinate in self.coordinates_list:
             tuple_list.append(coordinate.get_coordinate_tuple())
         return tuple_list
 
     def get_coordinates_list(self):
-        self.set_coordinates_list()
         return self.coordinates_list
 
     ## funktion ausmultiplizieren @mali
