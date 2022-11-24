@@ -2,7 +2,7 @@ class Coordinate:
     def __init__(self, x_value, y_value):
         self.x = x_value
         self.y = y_value
-        self.derivative = (0, 0)
+        self.derivatives = (0, 0)
 
     def set_x(self, value):
         self.x = value
