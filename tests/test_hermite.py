@@ -106,7 +106,6 @@ class TestHermite(unittest.TestCase):
     #     result = hermite.create_polynom()
     #     self.assertEqual(expected, result)
 
-
     def test_should_return_order_of_derivative(self):
         sampling_points = [(2, 4), (2, 5), (2, 8)]
         hermite = Hermite(sampling_points)
@@ -114,14 +113,12 @@ class TestHermite(unittest.TestCase):
         result = hermite.determine_derivative_order(sampling_points)
         self.assertEqual(expected, result)
 
-
     def test_should_return_order_of_derivative(self):
         sampling_points = [(2, 4)]
         hermite = Hermite(sampling_points)
         expected = 0
         result = hermite.determine_derivative_order(sampling_points)
         self.assertEqual(expected, result)
-
 
     def test_should_return_order_of_derivative(self):
         sampling_points = [(1, 1), (5, 4), (2, 3), (2, 1), (2, 2)]
@@ -138,7 +135,6 @@ class TestHermite(unittest.TestCase):
         expected = [(1, 1), (1, 1), (3, 4), (4, 3), (4, 3), (4, 3)]
         result = hermite.get_coordinates_list_as_list_of_tuples()
         self.assertEqual(expected, result)
-
 
     # def test_should_return_correct_coordinate_list(self):
     #     sampling_points = [(1, 1), (1, 4), (3, 4), (4, 3), (4, 7), (4, 2)]
