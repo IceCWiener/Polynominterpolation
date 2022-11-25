@@ -1,33 +1,5 @@
-# Author KR
-
-"""
-https://pythonnumericalmethods.berkeley.edu/notebooks/chapter17.05-Newtons-Polynomial-Interpolation.html
-Stützstellen: x0,...,xn (müssen alle unterschiedlich sein)
-Stützwerte: y0,...yn
-Punkte: P
-
-Newton'sches Interpolationsverfahren
-p(x)=a0+a1(x−x0)+a2(x−x0)(x−x1)+...+an(x−x0)(x−x1)(x−x2)⋅...⋅(x−xn−1)
-=> p(x)=∑[i=0 n]  ai*ni(x)
-mit ni(x)=∏[i−1 j=0]  (x−xj)
-
-y0=a0
-y1=a0+a1(x1−x0) -> a1 = y1 - a0/(x1 - x0)
-y2=a0+a1(x2−x0)+a2(x2−x0)(x2−x1) -> a2 = 
-...
-yn=a0+a1(xn−x0)+a2(xn−x0)(xn−x1)+ ... +an(xn−x0)(xn−x1)(xn−x2)⋅ ... ⋅(xn−xn−1)
-
-Beispiel:
-P0(1;2), P1(2;3), P2(3;1), P3(4;3)
-p(x)=a0+a1(x−1)+a2(x−1)(x−2)+a3(x−1)(x−2)(x−3)
-->
-2=a0⇒a0=2
-3=2+a1(2−1)⇒a1=1
-1=2+1(3−1)+a2(3−1)(3−2)⇒a2=−3/2=−1,5
-3=2+1(4−1)−1,5(4−1)(4−2)+a3(4−1)(4−2)(4−3)⇒a3=7/6
-"""
-
 import numpy as np
+import math
 
 class Newton:
     # Erstellen von Newtons "Pyramide" um Koeffizienten des Polynoms zu berechnen
@@ -43,6 +15,7 @@ class Newton:
         
         return pyramid_matrix[0] # erste Reihe wird zurückgegeben
 
+    # TODO: Falsche Methodik durch korrekte Rechnung ersetzen
     def create_polynome(self, coefficients):
         poly = ""
         degree = len(coefficients) - 1
@@ -67,14 +40,16 @@ class Newton:
         
         return result
 
+    # Methode zum testen der Stellen schreiben
+    def poly_test(self, x, y, coef):
+        print((-0.208*math.pow(7, 3))+(0.208*pow(7, 2))+(1.333*7)+1)
 
-
-    # Pyramide anschaulicher machen wie in der Mitschrift der Vorlesung
-    # Namen ändern & refactorn
-
-x = np.array([1, 7, 3, 5])
-y = np.array([1, 9, 2, 8])
+#x = np.array([1, 7, 3, 5])
+#y = np.array([1, 9, 2, 8])
+x = np.array([-1, 0, 1, 2])
+y = np.array([1, 1, 2, 0])
 nt = Newton()
 div_diff = nt.divided_differences(x, y)
 #print(div_diff)
 print(nt.create_polynome(div_diff))
+
