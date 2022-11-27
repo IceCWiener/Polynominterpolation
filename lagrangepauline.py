@@ -27,40 +27,42 @@ for b in range(len(stützstellen)):
     # xi werte in Funktion einsetzten 
     for s in range(len(li_function)):
         li_x_wert_teil = (stützstellen[b] + li_function[s]) 
-        #print("li_x_wert_teil: ",li_x_wert_teil)
         li_x_wert = li_x_wert * li_x_wert_teil
-    #print("li_x_wert: ",li_x_wert)  
     alle_li_x_werte.append(li_x_wert)
     li_x_wert = 1
 
 print("\nli_x_Werte", alle_li_x_werte, "mit li_function", alle_li_function, "\n")
+# mit diesen Werten jetzt einen Array erstellen, der aussieht wie beispiel_array 
 
-# Li Funktion erstellen 
-for c in range(len(alle_li_function)):
-    Li_function = []
-    Li_function.append(alle_li_function[c])
-    Li_function.append(alle_li_x_werte[c])
-    print(Li_function)
-    alle_Li_function.append(Li_function)
 
-print("alle Li Funktionen: ", alle_Li_function)
 
-# Li Funktion aumultiplizieren nach dem Schema: (x + a)*(x + b) = x^2 + x*(a + b) + a*b
+#Erstellen des Arrays, der alle Werte der li funktionen und lix werte beinhaltet
 
-# alle_Li_function in einen numpy array bringen 
-# diesen dann gleich skalierene [[[2,3],[2,0], ...]] 
-# dann das Element aufrufen mit name[0,3] -> erste Spalte viertes Element 
+Li_array = np.zeros((len(alle_li_x_werte),2,len(alle_li_x_werte) - 1)) #3, 2, 2
 
-beispiel_array = np.array([[[-2,-3], [2,0]], 
-                          [[-1,-3], [-1,0]], 
-                          [[-1,-2], [2,0]]])
+# Einfügen der li_function Werte in den Array 
+for t in range(len(alle_li_x_werte)):
+    Li_array = np.insert(Li_array, t*4, alle_li_function[t])
+#dann ist der restliche Array mit Nullen gefüllt, diese werden aber bei resize ignoriert 
 
-array_ausmult = np.array([[0, 0, 0]])
-#ausmultipliziert = [[1, beispiel_array[0,0,0] + beispiel_array[0,0,1], beispiel_array[0,0,0] * beispiel_array[0,0,1]]]
-for d in range(3):
+# Einfügen der li_x_werte in den Array 
+for u in range(len(alle_li_x_werte)):
+    Li_array = np.insert(Li_array, (u*4)+2, alle_li_x_werte[u])
+    Li_array = np.delete(Li_array, [(u*4)+3], None) 
+
+# resize Array 
+Li_array = np.resize(Li_array,(len(alle_li_x_werte),2,len(alle_li_x_werte)-1)) #3,2,2
+print("fertiger array: ", Li_array)
+
+
+
+# Li_array aumultiplizieren nach dem Schema: (x + a)*(x + b) = x^2 + x*(a + b) + a*b
+
+array_ausmult = np.array([[0,0,0]])
+for d in range(3): # shape, size 
     for e in range(2):
-        wert_ausmultipliziert = [[1 / beispiel_array[d,e+1,e], (beispiel_array[d,e,e] + beispiel_array[d,e,e+1]) / beispiel_array[d,e+1,e], (beispiel_array[d,e,e] * beispiel_array[d,e,e+1]) / beispiel_array[d,e+1,e]]]
-        #print(wert_ausmultipliziert)
+        wert_ausmultipliziert = [[1 / Li_array[d,e+1,e], (Li_array[d,e,e] + Li_array[d,e,e+1]) / Li_array[d,e+1,e], (Li_array[d,e,e] * Li_array[d,e,e+1]) / Li_array[d,e+1,e]]]
+        print("Wert ausmultipliziert: ",wert_ausmultipliziert)
         array_ausmult = np.concatenate((array_ausmult, wert_ausmultipliziert))
         #array_ausmult.append(wert_ausmultipliziert)
         break
