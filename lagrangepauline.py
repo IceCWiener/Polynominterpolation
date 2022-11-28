@@ -59,12 +59,11 @@ print("fertiger array: ", Li_array)
 
 array_ausmult = np.zeros((1,len(alle_li_x_werte))) #0,0,0
 print(array_ausmult)
-for d in range(len(alle_li_x_werte)): # shape, size 
+for d in range(len(alle_li_x_werte)): 
     for e in range(len(alle_li_x_werte) -1):
         wert_ausmultipliziert = np.array([[1 / Li_array[d,e+1,e], (Li_array[d,e,e] + Li_array[d,e,e+1]) / Li_array[d,e+1,e], (Li_array[d,e,e] * Li_array[d,e,e+1]) / Li_array[d,e+1,e]]])
         print("Wert ausmultipliziert: ",wert_ausmultipliziert)
-        array_ausmult = np.concatenate((array_ausmult, wert_ausmultipliziert)) # geht auch nur mit + ? 
-        #array_ausmult.append(wert_ausmultipliziert)
+        array_ausmult = np.concatenate((array_ausmult, wert_ausmultipliziert))
         break
 
 print(array_ausmult)
