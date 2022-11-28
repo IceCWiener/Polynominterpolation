@@ -1,5 +1,6 @@
 import math
 from coordinate import Coordinate
+import numpy as np
 
 
 class Hermite:
@@ -70,6 +71,18 @@ class Hermite:
 
     def is_same_x_value(self, coordinate1, coordinate2):
         return coordinate1.get_x() == coordinate2.get_x()
+
+    def divided_differences(self, x, y):
+        n = len(y) # n-1 = Grad des Polynoms
+        pyramid_matrix = np.zeros([n, n]) # n mal n Array gefüllt mit nullen
+        pyramid_matrix[::, 0] = y # erste Spalte wird mit y-Werten gefüllt
+        for j in range(1, n):
+            for i in range(n-j):
+
+                pyramid_matrix[i][j] = (pyramid_matrix[i+1][j-1] - pyramid_matrix[i][j-1]) / (x[i+j] - x[i])
+
+        print(999, pyramid_matrix[0])
+        return pyramid_matrix[0] # erste Reihe wird zurückgegeben
 
     def create_polynom(self):
         #self.divided_differences()
