@@ -135,15 +135,12 @@ class TestHermite(unittest.TestCase):
         result = hermite.get_coordinates_list_as_list_of_tuples()
         self.assertEqual(expected, result)
 
-    # def test_should_return_correct_coordinate_list(self):
+    # def test_should_set_correct_derivatives(self):
     #     sampling_points = [(1, 1), (1, 4), (3, 4), (4, 3), (4, 7), (4, 2)]
     #     hermite = Hermite(sampling_points)
     #     hermite.set_coordinates_list()
-    #     expected = ""
-    #     # teste dass f'(1) = 4,  f'(4) = 7, f''(4) =2
-    #     # dafür: nicht eine ableitung pro coordinate, sondern liste von ableitungen, und ordnung der ableitung ist position in der Liste
-    #     # derivatives = [7 , 4]  => f' = 7 , f'' = 4
-    #     result = hermite.get_coordinates_list_as_list_of_tuples()
+    #     expected = [(7, 1), (2, 2)]
+    #     result = hermite.get_coordinates_list()[3].get_derivatives()
     #     self.assertEqual(expected, result)
 
 
