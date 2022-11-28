@@ -155,16 +155,16 @@ class TestHermite(unittest.TestCase):
     #     self.assertEqual(expected, result)
 
 
-    # def test_should_return_first_row_of_matrix(self):
-    #     sampling_points = [(1, 1), (2, 4)]
-    #     hermite = Hermite(sampling_points)
-    #     expected = np.array([1, 3])
-    #
-    #     x_values = [1, 2]
-    #     y_values = [1, 4]
-    #
-    #     result = hermite.divided_differences(x_values, y_values)
-    #     self.assertTrue(expected == result)
+    def test_should_return_first_row_of_matrix(self):
+        sampling_points = [(1, 1), (2, 4)]
+        hermite = Hermite(sampling_points)
+        expected = np.array([1, 3])
+
+        x_values = [1, 2]
+        y_values = [1, 4]
+
+        result = hermite.divided_differences(x_values, y_values)
+        self.assertIsNone(np.testing.assert_array_equal(expected, result))
 
 
 if __name__ == '__main__':
