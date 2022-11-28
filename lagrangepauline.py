@@ -32,7 +32,6 @@ for b in range(len(stützstellen)):
     li_x_wert = 1
 
 print("\nli_x_Werte", alle_li_x_werte, "mit li_function", alle_li_function, "\n")
-# mit diesen Werten jetzt einen Array erstellen, der aussieht wie beispiel_array 
 
 
 
@@ -58,12 +57,13 @@ print("fertiger array: ", Li_array)
 
 # Li_array aumultiplizieren nach dem Schema: (x + a)*(x + b) = x^2 + x*(a + b) + a*b
 
-array_ausmult = np.array([[0,0,0]])
-for d in range(3): # shape, size 
-    for e in range(2):
-        wert_ausmultipliziert = [[1 / Li_array[d,e+1,e], (Li_array[d,e,e] + Li_array[d,e,e+1]) / Li_array[d,e+1,e], (Li_array[d,e,e] * Li_array[d,e,e+1]) / Li_array[d,e+1,e]]]
+array_ausmult = np.zeros((1,len(alle_li_x_werte))) #0,0,0
+print(array_ausmult)
+for d in range(len(alle_li_x_werte)): # shape, size 
+    for e in range(len(alle_li_x_werte) -1):
+        wert_ausmultipliziert = np.array([[1 / Li_array[d,e+1,e], (Li_array[d,e,e] + Li_array[d,e,e+1]) / Li_array[d,e+1,e], (Li_array[d,e,e] * Li_array[d,e,e+1]) / Li_array[d,e+1,e]]])
         print("Wert ausmultipliziert: ",wert_ausmultipliziert)
-        array_ausmult = np.concatenate((array_ausmult, wert_ausmultipliziert))
+        array_ausmult = np.concatenate((array_ausmult, wert_ausmultipliziert)) # geht auch nur mit + ? 
         #array_ausmult.append(wert_ausmultipliziert)
         break
 
