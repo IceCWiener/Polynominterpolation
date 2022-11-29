@@ -13,6 +13,6 @@ while i < len(multiplikatoren):
         else:
             polynom += "+"
 
-        polynom += + str(multiplikatoren[i]) + "(x-" + str(xWerte[i - 1]) + ")"
+        polynom += "" + str(multiplikatoren[i]) + "(x-" + str(xWerte[i - 1]) + ")"
     i += 1
 print(polynom)
