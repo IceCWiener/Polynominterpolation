@@ -7,7 +7,6 @@ class Newton:
 
         # Erstelle eine mit Nullern gefüllte Matrix
         pyramid_matrix = []
-
         for i in range(n):
             pyramid_matrix.append([])
             
@@ -28,7 +27,51 @@ class Newton:
         
         return pyramid_matrix[0] # erste Reihe wird zurückgegeben
 
-    # TODO: Funktionalität für Int-Polynom erstellen (zum Ausrechnen)
+    # TODO: Polynom ausmultiplizieren
+    # Bsp.: (x-1)*(x-2)*(x-3)*(x-4)
+    # -> (1*x^2-3x^1+2x^0)*(x-3)*(x-4)
+    # -> (x^3-6x^2+11x-6)*(x-4)
+    # -> (x^4-10x^3+35x^2-50x+24)
+    def multiply_poly(self, coeffs):
+        degree = len(coeffs)
+        result = []
+        first = True
+        coeff_counter = 0
+
+        temp_coeffs = []
+        temp_coeffs2 = []
+        for i in range(degree + 1):
+            temp_coeffs.append(0)
+            temp_coeffs2.append(0)
+        temp_coeffs[0] = 1
+        temp_coeffs[1] = coeffs[0]
+
+        for i in range(1, degree):
+            for j in range(0, degree + i):
+                if j == 0:
+                    temp_coeffs2[j] = 1
+                elif j % 2 == 0:
+                    if first:
+                        temp_coeffs[j] = (coeffs[j-1] * coeffs[j-2]) + temp_coeffs[j]
+                        temp_coeffs2[j] = temp_coeffs[j]
+                        first = False
+                    else:
+                        temp_coeffs2[j] = (temp_coeffs[j-1] * coeffs[i]) + temp_coeffs2[j]
+                else:                    
+                    temp_coeffs[j] = temp_coeffs[j] + coeffs[i]
+                    temp_coeffs2[j] = temp_coeffs[j]
+
+
+        for i in range(len(temp_coeffs)):
+            if i == 0:
+                result.append(temp_coeffs2[i])
+            elif i%2 == 0:
+                result.append(temp_coeffs2[i])
+            else:
+                result.append(temp_coeffs[i])
+                        
+        return result
+
     def calculate_poly(self, coeffs, x_vals):
         count = len(coeffs)
         result = []
@@ -72,5 +115,7 @@ nt = Newton()
 coefficients = nt.divided_differences(x_vals, y_vals)
 #print(div_diff)
 string_poly = nt.create_string_polynomial(coefficients)
-print(string_poly)
-print(nt.calculate_poly(coefficients, x_vals=[-1]))
+#print(string_poly)
+#print(nt.calculate_poly(coefficients, x_vals=[-1]))
+
+print(nt.multiply_poly([-1, -2, -3]))
