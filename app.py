@@ -1,6 +1,4 @@
 from hermite import Hermite
-from hermite import Hermite
-
 
 def collect_sampling_points():
     sampling_points_list = []
