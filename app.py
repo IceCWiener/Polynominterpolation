@@ -1,5 +1,5 @@
 from hermite import Hermite
-from hermiteMali import HermiteMali
+from hermite import Hermite
 
 
 def collect_sampling_points():
@@ -21,7 +21,7 @@ def collect_sampling_points():
         if xy2[0] == xy1[0]:
             hermite_var = True
             print("wir machen Hermit")
-            polynom = HermiteMali()
+            polynom = Hermite()
             coefficient = polynom.main_function(sampling_points_list)
             break
         elif hermite_var == False and Xn == len(sampling_points_list) - 2:
