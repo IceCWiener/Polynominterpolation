@@ -81,7 +81,6 @@ class Hermite:
 
                 pyramid_matrix[i][j] = (pyramid_matrix[i+1][j-1] - pyramid_matrix[i][j-1]) / (x[i+j] - x[i])
 
-        print(999, pyramid_matrix[0])
         return pyramid_matrix[0] # erste Reihe wird zurückgegeben
 
     def create_polynom(self):
