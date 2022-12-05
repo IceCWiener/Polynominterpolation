@@ -1,5 +1,6 @@
 import unittest
 from hermite import Hermite
+from hermiteMali import HermiteMali
 from coordinate import Coordinate
 import numpy as np
 
@@ -165,6 +166,22 @@ class TestHermite(unittest.TestCase):
 
         result = hermite.divided_differences(x_values, y_values)
         self.assertIsNone(np.testing.assert_array_equal(expected, result))
+
+    def test_should_return_x_list(self):
+        hermiteMali = HermiteMali()
+        xy_list = [(2, 3), (5, 7)]
+        expected = [2, 5]
+        result = hermiteMali.get_x_value_list(xy_list)
+        self.assertEqual(expected, result)
+
+    def test_should_return_coefficients(self):
+        hermiteMali = HermiteMali()
+        x_values = (1, 1, 3)
+        y_values = (4, 3, 2)
+        expected = []
+        xy_values = []
+        result = hermiteMali.divided_differences(x_values, y_values, xy_values)
+        self.assertEqual(expected, result)
 
 
 if __name__ == '__main__':
