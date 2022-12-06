@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 class Newton:
     # Erstellen von Newtons "Pyramide" um Koeffizienten/Multiplikatoren des Polynoms zu berechnen
@@ -72,6 +73,23 @@ class Newton:
                         
         return result
 
+    def newton_poly(self, coef, x_data, x):
+        n = len(x_data) - 1 
+        
+        # pt = coef[n]
+        # for k in range(1,n+1):
+        #     pt = coef[n-k] + (x - x_data[n-k])*pt
+
+        p = []
+        for i in x:
+            p.append(0.)
+
+        for i in range(1, n+1):
+            for j in range(0, len(x)):
+                p[j] = coef[n-i] + (x[j] - x_data[n-i])*p[j]
+
+        return p
+
     def calculate_poly(self, coeffs, x_vals):
         count = len(coeffs)
         result = []
@@ -111,11 +129,13 @@ class Newton:
 
 x_vals = [-1, 0, 1, 2]
 y_vals = [1, 1, 2, 0]
+xx_arr = np.array([1, 2, 3])
+xx = [1, 2, 3]
+yy = [3, 2, 1]
+x_test2 = np.arange(-5, 2.1, .1)
+x_test = np.array(x_vals)
 nt = Newton()
 coefficients = nt.divided_differences(x_vals, y_vals)
-#print(div_diff)
-string_poly = nt.create_string_polynomial(coefficients)
-#print(string_poly)
-#print(nt.calculate_poly(coefficients, x_vals=[-1]))
 
-print(nt.multiply_poly([-1, -2, -3]))
+# print(coefficients)
+print(nt.newton_poly(coefficients, x_vals, x_vals))
