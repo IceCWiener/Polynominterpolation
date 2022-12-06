@@ -73,6 +73,7 @@ class Newton:
                         
         return result
 
+    #TODO Mit unterschiedlichen Eingaben testen
     def newton_poly(self, coef, x_data, x):
         n = len(x_data) - 1 
         
