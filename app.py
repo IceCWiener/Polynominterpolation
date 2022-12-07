@@ -5,14 +5,15 @@ def collect_sampling_points():
     sampling_points_list = []
     hermite_var = False
     i = 0
-    while True:
-        if i != 0:
-            check_if_wants_to_continue = input("möchten Sie eine " + str(i + 1) + "te Stützstelle eingeben bitte Enter drücken, andernfalls geben sie n ein: ")
-            if check_if_wants_to_continue == "n":
-                break
-        sampling_point = (int(input("Bitte X-wert der " + str(i + 1) + "ten Stützstelle eingeben: ")), int(input("Bitte Y-wert der " + str(i + 1) + "ten Stützstelle eingeben: ")))
-        sampling_points_list.append(sampling_point)
-        i += 1
+    # while True:
+    #     if i != 0:
+    #         check_if_wants_to_continue = input("möchten Sie eine " + str(i + 1) + "te Stützstelle eingeben bitte Enter drücken, andernfalls geben sie n ein: ")
+    #         if check_if_wants_to_continue == "n":
+    #             break
+    #     sampling_point = (int(input("Bitte X-wert der " + str(i + 1) + "ten Stützstelle eingeben: ")), int(input("Bitte Y-wert der " + str(i + 1) + "ten Stützstelle eingeben: ")))
+    #     sampling_points_list.append(sampling_point)
+    #     i += 1
+    sampling_points_list = [(1, 1), (1, 4), (2, 3), (2, 1), (2, 2)]
     return sampling_points_list
 
 
@@ -24,6 +25,7 @@ def create_polynom(sampling_points_list):
             hermite_var = True
             print("wir machen Hermit")
             hermite_polynom = Hermite()
+            hermite_polynom.get_x_values(sampling_points_list)
             hermite_polynom.get_coefficients(sampling_points_list)
             return hermite_polynom
 
@@ -33,11 +35,23 @@ def create_polynom(sampling_points_list):
             return newton_polynom
 
 
+def generate_multiplied_out_polynom(pyramid_matrix, x_values):
+    coefficients = pyramid_matrix[0]
+    multiplied_out_polynom = f'{coefficients[0]}'
+    linear_factor = ""
+    for i in range(len(pyramid_matrix[0])-1):
+        linear_factor += f'(x-{x_values[i]})'
+        summand = f'{coefficients[i+1]}{linear_factor}'
+        multiplied_out_polynom = multiplied_out_polynom + " + " + summand
+    return multiplied_out_polynom
+
+
 if __name__ == '__main__':
     new_sampling_points_list = collect_sampling_points()
     print(new_sampling_points_list)
     polynom = create_polynom(new_sampling_points_list)
     try:
-        print(polynom.coefficients)
+        new_multiplied_out_polynom = generate_multiplied_out_polynom(polynom.pyramid_matrix, polynom.x_values)
+        print(new_multiplied_out_polynom)
     except AttributeError:
         print("Bitte mehr als eine Stützstelle eingeben")
