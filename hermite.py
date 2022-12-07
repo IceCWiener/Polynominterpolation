@@ -4,11 +4,14 @@ import numpy as np
 
 class Hermite:
 
-    def main_function(self, xy_list):
-        y_value = self.get_y_value_list(xy_list)
-        x_value = self.get_x_value_list(xy_list)
-        coefficient = self.divided_differences(x_value, y_value, xy_list)
-        return coefficient
+    def __init__(self):
+        self.coefficients = None
+
+    def get_coefficients(self, xy_list):
+        y_values = self.get_y_value_list(xy_list)
+        x_values = self.get_x_value_list(xy_list)
+        self.coefficients = self.divided_differences(x_values, y_values, xy_list)
+        return self.coefficients
 
     def get_y_value_list(self, xy_list):
         y_value_list = []
