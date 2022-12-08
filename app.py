@@ -72,12 +72,19 @@ def generate_multipliers(pyramid_matrix, x_values):
     # x_values = [1, 1, 2, 2, 2]
     print(666, x_values)
     # for j in range(len(x_values)-1):
-    # calc_temp[1] = calc_temp[1] + calc_temp[2] * ((-1) * x_values[0] + (-1) * x_values[1])
+    # calc_temp[1] = calc_temp[1] + calc_temp[2] * ((-1) * x_values[0] + (-1) * x_values[1])s
     for i in range(1):
-        calc_temp[i] = calc_temp[i] + calc_temp[i+1] * (-1) * x_values[0] + calc_temp[i+2] * (-1) * x_values[0] * (-1) * x_values[1]
+        calc_temp[i] = calc_temp[i] + calc_temp[i+1] * (-1) * x_values[0]
+        calc_temp[i] = calc_temp[i] + calc_temp[i+2] * (-1) * x_values[0] * (-1) * x_values[1]
+        calc_temp[i+1] = calc_temp[i+1] + calc_temp[i+2] * (-1) * x_values[0]
+        calc_temp[i+1] = calc_temp[i+1] + calc_temp[i+2] * (-1) * x_values[1]
 
-        calc_temp[i+1] = calc_temp[i+1] + calc_temp[i+2] * (-1) * x_values[0] + calc_temp[i+2] * (-1) * x_values[1]
 
+    # calc_temp[0] = calc_temp[0] + calc_temp[1] * (-1) * x_values[0]
+    # calc_temp[0] = calc_temp[0] + calc_temp[2] * (-1) * x_values[0] * (-1) * x_values[1]
+    #
+    # calc_temp[1] = calc_temp[1] + calc_temp[2] * (-1) * x_values[0]
+    # calc_temp[1] = calc_temp[1] + calc_temp[2] * (-1) * x_values[1]
     # print(888,calc_temp)
     # print(999, multipliers)
 
