@@ -7,7 +7,7 @@ class TestHermite(unittest.TestCase):
         hermite = Hermite()
         xy_list = [(2, 3), (5, 7)]
         expected = [2, 5]
-        result = hermite.get_x_value_list(xy_list)
+        result = hermite.get_x_values(xy_list)
         self.assertEqual(expected, result)
 
     def test_should_return_coefficients(self):
@@ -37,14 +37,29 @@ class TestHermite(unittest.TestCase):
         result = hermite.divided_differences(x_values, y_values, xy_values)
         self.assertEqual(expected, result)
 
-    def test_should_return_coefficients_when_sampling_point_y_value_zero(self):
+    def test_should_return_divided_differences_when_mathepeter_sampling_points(self):
         hermite = Hermite()
-        x_values = [1, 2, 10]
-        y_values = [1, 0, 4]
-        expected = [1/6, -3/2, 7/3]
-        xy_values = [(1, 1), (2, 0), (10, 4)]
-        result = hermite.divided_differences(x_values, y_values, xy_values)
-        self.assertEqual(expected, result)
+        x_values = [1, 1, 2, 2, 2]
+        y_values = [1, 1, 3, 3, 3]
+        expected = [1.0, 4.0, -2.0, 1.0, 1.0]
+        sampling_points = [(1, 1), (1, 4), (2, 3), (2, 1), (2, 2)]
+        self.assertEqual(expected, hermite.divided_differences(x_values, y_values, sampling_points))
+
+    def test_should_return_y_values_when_mathepeter_sampling_points(self):
+        hermite = Hermite()
+        x_values = [1, 1, 2, 2, 2]
+        expected = [1, 1, 3, 3, 3]
+        sampling_points = [(1, 1), (1, 4), (2, 3), (2, 1), (2, 2)]
+        self.assertEqual(expected, hermite.get_y_values(sampling_points))
+
+    # def test_should_return_coefficients_when_sampling_point_y_value_zero(self):
+    #     hermite = Hermite()
+    #     x_values = [1, 2, 10]
+    #     y_values = [1, 0, 4]
+    #     expected = [1/6, -3/2, 7/3]
+    #     xy_values = [(1, 1), (2, 0), (10, 4)]
+    #     result = hermite.divided_differences(x_values, y_values, xy_values)
+    #     self.assertEqual(expected, result)
 
 
 if __name__ == '__main__':
