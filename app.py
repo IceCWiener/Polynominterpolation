@@ -35,15 +35,55 @@ def create_polynom(sampling_points_list):
             return newton_polynom
 
 
-def generate_multiplied_out_polynom(pyramid_matrix, x_values):
+def generate_polynom_with_brackets(pyramid_matrix, x_values):
     coefficients = pyramid_matrix[0]
-    multiplied_out_polynom = f'{coefficients[0]}'
+    bracket_polynom = f'{coefficients[0]}'
     linear_factor = ""
     for i in range(len(pyramid_matrix[0])-1):
         linear_factor += f'(x-{x_values[i]})'
         summand = f'{coefficients[i+1]}{linear_factor}'
-        multiplied_out_polynom = multiplied_out_polynom + " + " + summand
+        bracket_polynom = bracket_polynom + " + " + summand
+    return bracket_polynom
+
+
+def generate_multiplied_out_polynom(multipliers):
+    multiplied_out_polynom = ''
+    for i in range(len(multipliers)-1):
+        multiplied_out_polynom += f'{multipliers[len(multipliers)-1]}x + {multipliers[len(multipliers)-2]}'
     return multiplied_out_polynom
+
+
+def generate_multipliers(pyramid_matrix, x_values):
+    coefficients = pyramid_matrix[0]
+    multipliers = []
+    for i in range(len(coefficients)):
+        multipliers.append(coefficients[i])
+
+
+    calc_temp = multipliers.copy()
+
+    # 1.0 + 4.0(x-1) + -2.0(x-1)(x-1)
+    # 1.0 + 4x -4 -2*(x^2 -1x + -1x +1)
+    # 1 + 4x - 4 - 2x^2 +4x -2
+    # -5 +8x -2x^2
+    # [1.0, 4.0, -2.0]
+    # [-3.0, 4.0, -2.0]
+    # [-5, 8, -2]
+    # x_values = [1, 1, 2, 2, 2]
+    print(666, x_values)
+    # for j in range(len(x_values)-1):
+    # calc_temp[1] = calc_temp[1] + calc_temp[2] * ((-1) * x_values[0] + (-1) * x_values[1])
+    for i in range(1):
+        calc_temp[i] = calc_temp[i] + calc_temp[i+1] * (-1) * x_values[0] + calc_temp[i+2] * (-1) * x_values[0] * (-1) * x_values[1]
+
+        calc_temp[i+1] = calc_temp[i+1] + calc_temp[i+2] * (-1) * x_values[0] + calc_temp[i+2] * (-1) * x_values[1]
+
+    # print(888,calc_temp)
+    # print(999, multipliers)
+
+    for i in range(len(coefficients)-1):
+        multipliers[i] = calc_temp[i]
+    return multipliers
 
 
 if __name__ == '__main__':
@@ -51,7 +91,9 @@ if __name__ == '__main__':
     print(new_sampling_points_list)
     polynom = create_polynom(new_sampling_points_list)
     try:
+        new_polynom_with_brackets = generate_polynom_with_brackets(polynom.pyramid_matrix, polynom.x_values)
+        print(polynom.pyramid_matrix)
+        print(new_polynom_with_brackets)
         new_multiplied_out_polynom = generate_multiplied_out_polynom(polynom.pyramid_matrix, polynom.x_values)
-        print(new_multiplied_out_polynom)
     except AttributeError:
         print("Bitte mehr als eine Stützstelle eingeben")
