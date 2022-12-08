@@ -52,5 +52,6 @@ class TestApp(unittest.TestCase):
         expected = [-5.0, 8.0, -2.0]
         self.assertEqual(expected, generate_multipliers(pyramid_matrix, x_values))
 
+
 if __name__ == '__main__':
     unittest.main()
