@@ -55,42 +55,20 @@ def generate_multiplied_out_polynom(multipliers):
 
 def generate_multipliers(pyramid_matrix, x_values):
     coefficients = pyramid_matrix[0]
-    multipliers = []
-    for i in range(len(coefficients)):
-        multipliers.append(coefficients[i])
+    temp = []
+    for i in coefficients:
+        temp.append(0)
 
+    temp[0] += coefficients[0]
+    temp[0] += coefficients[1] * (-1) * x_values[0]
+    temp[0] += coefficients[2] * (-1) * x_values[0] * (-1) * x_values[1]
 
-    calc_temp = multipliers.copy()
+    temp[1] += coefficients[1]
+    temp[1] += coefficients[2] * (-1) * x_values[0] + coefficients[2] * (-1) * x_values[1]
 
-    # 1.0 + 4.0(x-1) + -2.0(x-1)(x-1)
-    # 1.0 + 4x -4 -2*(x^2 -1x + -1x +1)
-    # 1 + 4x - 4 - 2x^2 +4x -2
-    # -5 +8x -2x^2
-    # [1.0, 4.0, -2.0]
-    # [-3.0, 4.0, -2.0]
-    # [-5, 8, -2]
-    # x_values = [1, 1, 2, 2, 2]
-    print(666, x_values)
-    # for j in range(len(x_values)-1):
-    # calc_temp[1] = calc_temp[1] + calc_temp[2] * ((-1) * x_values[0] + (-1) * x_values[1])s
-    for i in range(1):
-        calc_temp[i] = calc_temp[i] + calc_temp[i+1] * (-1) * x_values[0]
-        calc_temp[i] = calc_temp[i] + calc_temp[i+2] * (-1) * x_values[0] * (-1) * x_values[1]
-        calc_temp[i+1] = calc_temp[i+1] + calc_temp[i+2] * (-1) * x_values[0]
-        calc_temp[i+1] = calc_temp[i+1] + calc_temp[i+2] * (-1) * x_values[1]
+    temp[2] += coefficients[2]
 
-
-    # calc_temp[0] = calc_temp[0] + calc_temp[1] * (-1) * x_values[0]
-    # calc_temp[0] = calc_temp[0] + calc_temp[2] * (-1) * x_values[0] * (-1) * x_values[1]
-    #
-    # calc_temp[1] = calc_temp[1] + calc_temp[2] * (-1) * x_values[0]
-    # calc_temp[1] = calc_temp[1] + calc_temp[2] * (-1) * x_values[1]
-    # print(888,calc_temp)
-    # print(999, multipliers)
-
-    for i in range(len(coefficients)-1):
-        multipliers[i] = calc_temp[i]
-    return multipliers
+    return temp
 
 
 if __name__ == '__main__':
