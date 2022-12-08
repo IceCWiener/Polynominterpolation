@@ -55,20 +55,15 @@ def generate_multiplied_out_polynom(multipliers):
 
 def generate_multipliers(pyramid_matrix, x_values):
     coefficients = pyramid_matrix[0]
-    temp = []
-    for i in coefficients:
-        temp.append(0)
+    n = len(coefficients) #3
+    m = 1 #len(x_values)
 
-    temp[0] += coefficients[0]
-    temp[0] += coefficients[1] * (-1) * x_values[0]
-    temp[0] += coefficients[2] * (-1) * x_values[0] * (-1) * x_values[1]
+    #while m >= 0:
+    coefficients[0] += coefficients[2]*(-1)*x_values[1]*(-1)*x_values[0] + coefficients[1]*(-1)*x_values[0]
+    coefficients[1] += coefficients[2]*(-1)*x_values[1] + coefficients[2]*(-1)*x_values[0]
+        #m -= 1
 
-    temp[1] += coefficients[1]
-    temp[1] += coefficients[2] * (-1) * x_values[0] + coefficients[2] * (-1) * x_values[1]
-
-    temp[2] += coefficients[2]
-
-    return temp
+    return coefficients
 
 
 if __name__ == '__main__':
