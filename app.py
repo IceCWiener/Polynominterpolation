@@ -1,6 +1,5 @@
 from hermite import Hermite
 from Newton import Newton
-import numpy as np
 
 def collect_sampling_points():
     sampling_points_list = []
@@ -30,12 +29,22 @@ def create_polynom(sampling_points_list):
             hermite_polynom.get_coefficients(sampling_points_list)
             new_polynom_with_brackets = generate_polynom_with_brackets(hermite_polynom.pyramid_matrix, hermite_polynom.x_values)
             print(f'p(x) = {new_polynom_with_brackets}')
+            standard_form_polynom_coef = generate_polynom_coefficients(hermite_polynom.coefficients, hermite_polynom.x_values)
+            pretty_polynom = transform_coefficients_to_pretty_polynom(standard_form_polynom_coef)
+            print(pretty_polynom)
             return hermite_polynom
 
         if x_n == len(sampling_points_list) - 2:
             print("wir machen Newton und Lagrange")
             newton_polynom = Newton()
             return newton_polynom
+
+
+def transform_coefficients_to_pretty_polynom(coefficients):
+    standard_form_polynom = "p(x) = "
+    for i in range(len(coefficients)-1, -1, -1):
+        standard_form_polynom += f'{coefficients[i]} x^{i} + '
+    return standard_form_polynom
 
 
 def generate_polynom_with_brackets(pyramid_matrix, x_values):
@@ -95,6 +104,7 @@ def map_ndarray_to_array(ndarray):
     for i in range(len(ndarray[0].coef)):
         result_pol.append(ndarray[0].coef[int(i)])
     return result_pol
+
 
 def multiply_polynoms(pol1, pol2):
     multiplied_pol = [0]*(len(pol1) + len(pol2)-1)
