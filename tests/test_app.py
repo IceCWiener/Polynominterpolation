@@ -29,7 +29,7 @@ class TestApp(unittest.TestCase):
 
     def test_should_return_polynom_coefficients_when_second_grade(self):
         pyramid_matrix = [[1.0, 4.0, -2.0], [1.0, 2.0, -1.0], [3.0, 1.0, 1.0]]
-        x_values = [1., 1., 2.]
+        x_values = [1, 1, 2]
         expected = [-5.0, 8.0, -2.0]
         self.assertEqual(expected, generate_polynom_coefficients(pyramid_matrix[0], x_values))
 
