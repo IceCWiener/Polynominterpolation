@@ -62,9 +62,7 @@ def numpy_generate_polynom_coefficients(coefficients, x_values):
         p *= coefficients[i]
         final_pol = np.polyadd(final_pol, p)
 
-    result_pol = []
-    for i in range(len(final_pol[0].coef)):
-        result_pol.append(final_pol[0].coef[int(i)])
+    result_pol = map_ndarray_to_array(final_pol)
     return result_pol
 
 
@@ -73,16 +71,20 @@ def generate_polynom_coefficients(coefficients, x_values):
     n = len(coefficients)
 
     for i in range(n):
-        p = np.polynomial.Polynomial([1.])
+        p = [1.]
         for j in range(i):
-            p_temp = np.polynomial.Polynomial([-x_values[j], 1.]) # (x - x_j)
-            p = np.polymul(p, p_temp)
-            print(p[0].coef)
-        p *= coefficients[i]
-        final_pol = np.polyadd(final_pol, p)
+            p_temp = [-x_values[j], 1.] # (x - x_j)
+            p = multiply_polynoms(p, p_temp)
+        p = multiply_each_element_of_polynom(p, coefficients[i])
+        final_pol = add_polynoms(final_pol, p)
 
-    result_pol = map_ndarray_to_array(final_pol)
-    return result_pol
+    return final_pol
+
+
+def add_polynoms(pol1, pol2):
+    for i in range(len(pol1)):
+        pol1[i] += pol2[i]
+    return pol1
 
 
 def map_ndarray_to_array(ndarray):
