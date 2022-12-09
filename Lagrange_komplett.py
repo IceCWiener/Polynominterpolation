@@ -1,6 +1,8 @@
-class Lagrange:
+import numpy as np    
+from Newton import Newton
 
-    import numpy as np       
+class Lagrange:
+   
 
     # Stützstellen mit negativem Vorzeichen erzeugen
     def create_wfunction(self, stützstellen):
@@ -19,7 +21,7 @@ class Lagrange:
 
         for i in range(len(stützstellen)):
             li_function = w_function.copy()
-            li_function.pop(i)
+            li_function.pop(i) # (x-1)(x-2)
             multiply_li_function = Newton().multiply_poly(li_function)
             alle_li_function.append(multiply_li_function)
 
@@ -36,7 +38,6 @@ class Lagrange:
 
     # Li-function erstellen = li_function / li_x_wert
     def create_Li_function(self, n, alle_li_function, alle_li_x_werte):
-        np = self.np
         Li_function = []
         Li_function_teil = 0
 
