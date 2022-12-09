@@ -56,7 +56,7 @@ def generate_polynom_coefficients(coefficients, x_values):
     for i in range(n):
         p = [1.]
         for j in range(i):
-            p_temp = [-x_values[j], 1.] # (x - x_j)
+            p_temp = [-x_values[j], 1.]
             p = multiply_polynoms(p, p_temp)
         p = [j * coefficients[i] for j in p]
         final_pol += np.polyadd(final_pol, p)
