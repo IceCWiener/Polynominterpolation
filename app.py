@@ -52,21 +52,28 @@ def generate_polynom_with_brackets(pyramid_matrix, x_values):
 def generate_polynom_coefficients(coefficients, x_values):
     final_pol = []
     n = len(coefficients)
-    x = x_values
 
     for i in range(n):
-        p = np.polynomial.Polynomial([1.])
+        p = [1.]
         for j in range(i):
-            p_temp = np.polynomial.Polynomial([-x[j], 1.]) # (x - x_j)
-            print(999,p_temp)
-            p = np.polymul(p, p_temp)
-        p *= coefficients[i]
-        final_pol = np.polyadd(final_pol, p)
+            p_temp = [-x_values[j], 1.] # (x - x_j)
+            p = multiply_polynoms(p, p_temp)
+        p = [j * coefficients[i] for j in p]
+        final_pol += np.polyadd(final_pol, p)
+        print(777, final_pol)
 
     result_pol = []
-    for i in range(len(final_pol[0].coef)):
-        result_pol.append(final_pol[0].coef[int(i)])
+    for i in range(len(final_pol)):
+        result_pol.append(final_pol[i])
     return result_pol
+
+
+def multiply_polynoms(pol1, pol2):
+    multiplied_pol = [0]*(len(pol1) + len(pol2)-1)
+    for o1, i1 in enumerate(pol1):
+        for o2, i2 in enumerate(pol2):
+            multiplied_pol[o1+o2] += i1*i2
+    return multiplied_pol
 
 
 if __name__ == '__main__':
