@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import sympy as sy
 
 class Newton:
     # Erstellen von Newtons "Pyramide" um Koeffizienten/Multiplikatoren des Polynoms zu berechnen
@@ -29,7 +30,7 @@ class Newton:
         return pyramid_matrix[0] # erste Reihe wird zurückgegeben
 
     # TODO: Polynom ausmultiplizieren
-    # Bsp.: (x-1)*(x-2)*(x-3)*(x-4)
+    # Bsp.: 
     # -> (1*x^2-3x^1+2x^0)*(x-3)*(x-4)
     # -> (x^3-6x^2+11x-6)*(x-4)
     # -> (x^4-10x^3+35x^2-50x+24)
@@ -128,15 +129,12 @@ class Newton:
         
         return result
 
-x_vals = [-1, 0, 1, 2]
-y_vals = [1, 1, 2, 0]
-xx_arr = np.array([1, 2, 3])
-xx = [1, 2, 3]
-yy = [3, 2, 1]
-x_test2 = np.arange(-5, 2.1, .1)
-x_test = np.array(x_vals)
+x_vals = [1, 2, 3, 4]
+y_vals = [5, 2, 5, -1]
+# coeff -> [5.0, -3.0, 3.0, -2.5] -> ausmultipliziert ((x-5)*(x-(-3))*(x-3)*(x-(-2.5))) -> x^4 - 6 x^3 + 5 x^2
+
 nt = Newton()
 coefficients = nt.divided_differences(x_vals, y_vals)
 
 # print(coefficients)
-print(nt.newton_poly(coefficients, x_vals, x_vals))
+print(nt.newton_poly(coefficients, [0, 5, 6, 1], x_vals))
