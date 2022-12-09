@@ -1,5 +1,7 @@
 from hermite import Hermite
 from Newton import Newton
+import numpy as np
+
 from Lagrange_komplett import Lagrange
 
 def collect_sampling_points():
