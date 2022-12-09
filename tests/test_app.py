@@ -1,8 +1,10 @@
 import unittest
 from app import generate_polynom_with_brackets
 from app import generate_polynom_coefficients
+from app import numpy_generate_polynom_coefficients
 from app import multiply_polynoms
 from app import multiply_each_element_of_polynom
+from app import add_polynoms
 
 class TestApp(unittest.TestCase):
     def test_should_return_bracket_polynom_when_two_sampling_points(self):
@@ -41,7 +43,7 @@ class TestApp(unittest.TestCase):
         pyramid_matrix = [[1.0, 4.0, -2.0], [1.0, 2.0, -1.0], [3.0, 1.0, 1.0]]
         x_values = [1., 1., 2.]
         expected = [-5.0, 8.0, -2.0]
-        self.assertEqual(expected, generate_polynom_coefficients(pyramid_matrix[0], x_values))
+        self.assertEqual(expected, numpy_generate_polynom_coefficients(pyramid_matrix[0], x_values))
 
     def test_should_return_multiplied_polynom(self):
         pol1 = [1, 5, 2]
@@ -54,6 +56,12 @@ class TestApp(unittest.TestCase):
         factor = 4
         expected = [4, 20, 8]
         self.assertEqual(expected, multiply_each_element_of_polynom(pol1, factor))
+
+    def test_should_return_added_polynoms(self):
+        pol1 = [1, 5, 2]
+        pol2 = [6, 1, 18]
+        expected = [7, 6, 20]
+        self.assertEqual(expected, add_polynoms(pol1, pol2))
 
 
 
