@@ -1,5 +1,5 @@
 from hermite import Hermite
-from Newton import Newton 
+from Newton import Newton
 from Lagrange_komplett import Lagrange
 
 def collect_sampling_points():
@@ -28,8 +28,6 @@ def create_polynom(sampling_points_list):
             hermite_polynom = Hermite()
             hermite_polynom.get_x_values(sampling_points_list)
             hermite_polynom.get_coefficients(sampling_points_list)
-            new_polynom_with_brackets = generate_polynom_with_brackets(hermite_polynom.pyramid_matrix, hermite_polynom.x_values)
-            print(f'p(x) = {new_polynom_with_brackets}')
             return hermite_polynom
 
         if x_n == len(sampling_points_list) - 2:
