@@ -1,6 +1,5 @@
 from hermite import Hermite
 from Newton import Newton
-
 def collect_sampling_points():
     sampling_points_list = []
     hermite_var = False
@@ -58,8 +57,7 @@ def generate_multipliers(pyramid_matrix, x_values):
     for i in range(len(pyramid_matrix[0])):
         coefficients.append(pyramid_matrix[0][i])
 
-    coefficients[0] += coefficients[2]*(-1)*x_values[1]*(-1)*x_values[0] + coefficients[1]*(-1)*x_values[0]
-
+    coefficients[0] += coefficients[1]*(-1)*x_values[0] + coefficients[2]*(-1)*x_values[1]*(-1)*x_values[0]
     coefficients[1] += coefficients[2]*(-1)*x_values[1] + coefficients[2]*(-1)*x_values[0]
 
     return coefficients
