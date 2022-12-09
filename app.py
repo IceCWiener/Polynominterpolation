@@ -1,5 +1,9 @@
 from hermite import Hermite
 from Newton import Newton
+<<<<<<< HEAD
+=======
+import numpy as np
+>>>>>>> c257f4a (feat: ausmultiplizieren with numpy)
 def collect_sampling_points():
     sampling_points_list = []
     hermite_var = False
@@ -47,16 +51,23 @@ def generate_polynom_with_brackets(pyramid_matrix, x_values):
     return bracket_polynom
 
 
-def generate_multipliers(pyramid_matrix, x_values):
-    coefficients = []
-    for i in range(len(pyramid_matrix[0])):
-        coefficients.append(pyramid_matrix[0][i])
+def generate_polynom_coefficients(coefficients, x_values):
+    final_pol = np.polynomial.Polynomial([0.])
+    n = len(coefficients)
+    x = np.array(x_values)
 
-    coefficients[0] += coefficients[1]*(-1)*x_values[0] + coefficients[2]*(-1)*x_values[1]*(-1)*x_values[0]
-    coefficients[0] += coefficients[2]*(-1)*x_values[1]*(-1)*x_values[0] + coefficients[1]*(-1)*x_values[0]
-    coefficients[1] += coefficients[2]*(-1)*x_values[1] + coefficients[2]*(-1)*x_values[0]
+    for i in range(n):
+        p = np.polynomial.Polynomial([1.])
+        for j in range(i):
+            p_temp = np.polynomial.Polynomial([-x[j], 1.]) # (x - x_j)
+            p = np.polymul(p, p_temp)
+        p *= coefficients[i]
+        final_pol = np.polyadd(final_pol, p)
 
-    return coefficients
+    result_pol = []
+    for i in range(len(final_pol[0].coef)):
+        result_pol.append(final_pol[0].coef[int(i)])
+    return result_pol
 
 
 if __name__ == '__main__':

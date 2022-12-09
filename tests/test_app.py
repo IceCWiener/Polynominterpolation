@@ -1,6 +1,6 @@
 import unittest
 from app import generate_polynom_with_brackets
-from app import generate_multipliers
+from app import generate_polynom_coefficients
 
 class TestApp(unittest.TestCase):
     def test_should_return_bracket_polynom_when_two_sampling_points(self):
@@ -21,11 +21,11 @@ class TestApp(unittest.TestCase):
         expected = "1.0 + 4.0(x-1) + -2.0(x-1)(x-1) + 1.0(x-1)(x-1)(x-2) + 1.0(x-1)(x-1)(x-2)(x-2)"
         self.assertEqual(expected, generate_polynom_with_brackets(pyramid_matrix, x_values))
 
-    def test_should_return_multipliers_when_second_grade(self):
+    def test_should_return_polynom_coefficients_when_second_grade(self):
         pyramid_matrix = [[1.0, 4.0, -2.0], [1.0, 2.0, -1.0], [3.0, 1.0, 1.0]]
         x_values = [1, 1, 2]
         expected = [-5.0, 8.0, -2.0]
-        self.assertEqual(expected, generate_multipliers(pyramid_matrix, x_values))
+        self.assertEqual(expected, generate_polynom_coefficients(pyramid_matrix[0], x_values))
 
     # def test_should_return_multiplied_out_polynom_when_three_sampling_points(self):
     #     pyramid_matrix = [
