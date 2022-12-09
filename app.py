@@ -82,9 +82,29 @@ def generate_polynom_coefficients(coefficients, x_values):
 
 
 def add_polynoms(pol1, pol2):
-    for i in range(len(pol1)):
-        pol1[i] += pol2[i]
-    return pol1
+    if len(pol1) == 0:
+        return pol2
+
+    if len(pol2) == 0:
+        return pol2
+
+    max_length = max(len(pol1), len(pol2))
+    result = [0] * max_length
+
+    if (len(pol1)>=len(pol2)):
+        longer_pol = pol1
+        short_pol = pol2
+    else:
+        longer_pol = pol2
+        short_pol = pol1
+
+    for i in range(len(longer_pol)):
+        result[i] = longer_pol[i]
+
+    for j in range(len(short_pol)):
+        result[j] += short_pol[j]
+
+    return result
 
 
 def map_ndarray_to_array(ndarray):
