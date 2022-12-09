@@ -33,7 +33,6 @@ def create_polynom(sampling_points_list):
         if x_n == len(sampling_points_list) - 2:
             print("wir machen Newton und Lagrange")
             newton_polynom = Newton()
-            lagrange_polynom = Lagrange()
             return newton_polynom
 
 
