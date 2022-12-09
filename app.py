@@ -50,14 +50,15 @@ def generate_polynom_with_brackets(pyramid_matrix, x_values):
 
 
 def generate_polynom_coefficients(coefficients, x_values):
-    final_pol = np.polynomial.Polynomial([0.])
+    final_pol = []
     n = len(coefficients)
-    x = np.array(x_values)
+    x = x_values
 
     for i in range(n):
         p = np.polynomial.Polynomial([1.])
         for j in range(i):
             p_temp = np.polynomial.Polynomial([-x[j], 1.]) # (x - x_j)
+            print(999,p_temp)
             p = np.polymul(p, p_temp)
         p *= coefficients[i]
         final_pol = np.polyadd(final_pol, p)
