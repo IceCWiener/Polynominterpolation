@@ -29,6 +29,9 @@ def create_polynom(sampling_points_list):
             hermite_polynom = Hermite()
             hermite_polynom.get_x_values(sampling_points_list)
             hermite_polynom.get_coefficients(sampling_points_list)
+            standard_form_polynom_coef = generate_polynom_coefficients(hermite_polynom.coefficients, hermite_polynom.x_values)
+            pretty_polynom = transform_coefficients_to_pretty_polynom(standard_form_polynom_coef)
+            print(pretty_polynom)
             return hermite_polynom
 
         if x_n == len(sampling_points_list) - 2:
