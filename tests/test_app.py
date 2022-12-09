@@ -25,25 +25,13 @@ class TestApp(unittest.TestCase):
         expected = "1.0 + 4.0(x-1) + -2.0(x-1)(x-1) + 1.0(x-1)(x-1)(x-2) + 1.0(x-1)(x-1)(x-2)(x-2)"
         self.assertEqual(expected, generate_polynom_with_brackets(pyramid_matrix, x_values))
 
-        # def test_should_return_multiplied_out_polynom_when_three_sampling_points(self):
-    #     pyramid_matrix = [
-    #         [1.0, 4.0, -2.0, 1.0, 1.0],
-    #         [1.0, 2.0, -1.0, 2.0, 0.0],
-    #         [3.0, 1.0, 1.0, 0.0, 0.0],
-    #         [3.0, 1.0, 0.0, 0.0, 0.0],
-    #         [3.0, 0.0, 0.0, 0.0, 0.0]
-    #     ]
-    #     x_values = [1, 1, 2, 2, 2]
-    #
-    #     polynom_with_brackets = "1.0 + 4.0(x-1) + -2.0(x-1)(x-1) + 1.0(x-1)(x-1)(x-2) + 1.0(x-1)(x-1)(x-2)(x-2)"
-    #     expected = "x^4 + -5x^3 + 7x^2 + x + -3"
-    #     self.assertEqual(expected, generate_multiplied_out_polynom(pyramid_matrix, x_values))
+
 
     def test_should_return_polynom_coefficients_when_second_grade(self):
         pyramid_matrix = [[1.0, 4.0, -2.0], [1.0, 2.0, -1.0], [3.0, 1.0, 1.0]]
         x_values = [1., 1., 2.]
         expected = [-5.0, 8.0, -2.0]
-        self.assertEqual(expected, numpy_generate_polynom_coefficients(pyramid_matrix[0], x_values))
+        self.assertEqual(expected, generate_polynom_coefficients(pyramid_matrix[0], x_values))
 
     def test_should_return_multiplied_polynom(self):
         pol1 = [1, 5, 2]
@@ -62,6 +50,32 @@ class TestApp(unittest.TestCase):
         pol2 = [6, 1, 18]
         expected = [7, 6, 20]
         self.assertEqual(expected, add_polynoms(pol1, pol2))
+
+    def test_should_return_added_polynoms_when_one_empty(self):
+        pol1 = []
+        pol2 = [6, 1, 18]
+        self.assertEqual(pol2, add_polynoms(pol1, pol2))
+
+    def test_should_return_added_polynoms_when_one_empty(self):
+        pol1 = [1]
+        pol2 = [8, 1, 18]
+        expected = [9, 1, 18]
+        self.assertEqual(expected, add_polynoms(pol1, pol2))
+
+
+    # def test_should_return_multiplied_out_polynom_when_three_sampling_points(self):
+    #     pyramid_matrix = [
+    #         [1.0, 4.0, -2.0, 1.0, 1.0],
+    #         [1.0, 2.0, -1.0, 2.0, 0.0],
+    #         [3.0, 1.0, 1.0, 0.0, 0.0],
+    #         [3.0, 1.0, 0.0, 0.0, 0.0],
+    #         [3.0, 0.0, 0.0, 0.0, 0.0]
+    #     ]
+    #     x_values = [1, 1, 2, 2, 2]
+    #
+    #     polynom_with_brackets = "1.0 + 4.0(x-1) + -2.0(x-1)(x-1) + 1.0(x-1)(x-1)(x-2) + 1.0(x-1)(x-1)(x-2)(x-2)"
+    #     expected = "x^4 + -5x^3 + 7x^2 + x + -3"
+    #     self.assertEqual(expected, generate_multiplied_out_polynom(pyramid_matrix, x_values))
 
 
 
