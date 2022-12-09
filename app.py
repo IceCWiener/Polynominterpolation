@@ -27,8 +27,6 @@ def create_polynom(sampling_points_list):
             hermite_polynom = Hermite()
             hermite_polynom.get_x_values(sampling_points_list)
             hermite_polynom.get_coefficients(sampling_points_list)
-            new_polynom_with_brackets = generate_polynom_with_brackets(hermite_polynom.pyramid_matrix, hermite_polynom.x_values)
-            print(f'p(x) = {new_polynom_with_brackets}')
             standard_form_polynom_coef = generate_polynom_coefficients(hermite_polynom.coefficients, hermite_polynom.x_values)
             pretty_polynom = transform_coefficients_to_pretty_polynom(standard_form_polynom_coef)
             print(pretty_polynom)
