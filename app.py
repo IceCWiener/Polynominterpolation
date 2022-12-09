@@ -26,6 +26,8 @@ def create_polynom(sampling_points_list):
             hermite_polynom = Hermite()
             hermite_polynom.get_x_values(sampling_points_list)
             hermite_polynom.get_coefficients(sampling_points_list)
+            new_polynom_with_brackets = generate_polynom_with_brackets(hermite_polynom.pyramid_matrix, hermite_polynom.x_values)
+            print(f'p(x) = {new_polynom_with_brackets}')
             return hermite_polynom
 
         if x_n == len(sampling_points_list) - 2:
@@ -45,19 +47,13 @@ def generate_polynom_with_brackets(pyramid_matrix, x_values):
     return bracket_polynom
 
 
-def generate_multiplied_out_polynom(multipliers):
-    multiplied_out_polynom = ''
-    for i in range(len(multipliers)-1):
-        multiplied_out_polynom += f'{multipliers[len(multipliers)-1]}x + {multipliers[len(multipliers)-2]}'
-    return multiplied_out_polynom
-
-
 def generate_multipliers(pyramid_matrix, x_values):
     coefficients = []
     for i in range(len(pyramid_matrix[0])):
         coefficients.append(pyramid_matrix[0][i])
 
     coefficients[0] += coefficients[1]*(-1)*x_values[0] + coefficients[2]*(-1)*x_values[1]*(-1)*x_values[0]
+    coefficients[0] += coefficients[2]*(-1)*x_values[1]*(-1)*x_values[0] + coefficients[1]*(-1)*x_values[0]
     coefficients[1] += coefficients[2]*(-1)*x_values[1] + coefficients[2]*(-1)*x_values[0]
 
     return coefficients
@@ -65,12 +61,7 @@ def generate_multipliers(pyramid_matrix, x_values):
 
 if __name__ == '__main__':
     new_sampling_points_list = collect_sampling_points()
-    print(new_sampling_points_list)
+    print(f'Stützstellen: {new_sampling_points_list}')
     polynom = create_polynom(new_sampling_points_list)
-    try:
-        new_polynom_with_brackets = generate_polynom_with_brackets(polynom.pyramid_matrix, polynom.x_values)
-        print(polynom.pyramid_matrix)
-        print(new_polynom_with_brackets)
-        new_multiplied_out_polynom = generate_multiplied_out_polynom(polynom.pyramid_matrix, polynom.x_values)
-    except AttributeError:
-        print("Bitte mehr als eine Stützstelle eingeben")
+
+
