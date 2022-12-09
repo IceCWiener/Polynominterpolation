@@ -2,6 +2,7 @@ import unittest
 from app import generate_polynom_with_brackets
 from app import generate_polynom_coefficients
 from app import multiply_polynoms
+from app import multiply_each_element_of_polynom
 
 class TestApp(unittest.TestCase):
     def test_should_return_bracket_polynom_when_two_sampling_points(self):
@@ -47,6 +48,12 @@ class TestApp(unittest.TestCase):
         pol2 = [6, 1, 4, 3]
         expected = [6, 31, 21, 25, 23, 6]
         self.assertEqual(expected, multiply_polynoms(pol1, pol2))
+
+    def test_should_return_polynom_with_multiplied_elements(self):
+        pol1 = [1, 5, 2]
+        factor = 4
+        expected = [4, 20, 8]
+        self.assertEqual(expected, multiply_each_element_of_polynom(pol1, factor))
 
 
 

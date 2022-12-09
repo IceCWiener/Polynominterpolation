@@ -49,24 +49,47 @@ def generate_polynom_with_brackets(pyramid_matrix, x_values):
     return bracket_polynom
 
 
+def numpy_generate_polynom_coefficients(coefficients, x_values):
+    final_pol = []
+    n = len(coefficients)
+    x = x_values
+
+    for i in range(n):
+        p = np.polynomial.Polynomial([1.])
+        for j in range(i):
+            p_temp = np.polynomial.Polynomial([-x[j], 1.]) # (x - x_j)
+            p = np.polymul(p, p_temp)
+        p *= coefficients[i]
+        final_pol = np.polyadd(final_pol, p)
+
+    result_pol = []
+    for i in range(len(final_pol[0].coef)):
+        result_pol.append(final_pol[0].coef[int(i)])
+    return result_pol
+
+
 def generate_polynom_coefficients(coefficients, x_values):
     final_pol = []
     n = len(coefficients)
 
     for i in range(n):
-        p = [1.]
+        p = np.polynomial.Polynomial([1.])
         for j in range(i):
-            p_temp = [-x_values[j], 1.]
-            p = multiply_polynoms(p, p_temp)
-        p = [j * coefficients[i] for j in p]
-        final_pol += np.polyadd(final_pol, p)
-        print(777, final_pol)
+            p_temp = np.polynomial.Polynomial([-x_values[j], 1.]) # (x - x_j)
+            p = np.polymul(p, p_temp)
+            print(p[0].coef)
+        p *= coefficients[i]
+        final_pol = np.polyadd(final_pol, p)
 
-    result_pol = []
-    for i in range(len(final_pol)):
-        result_pol.append(final_pol[i])
+    result_pol = map_ndarray_to_array(final_pol)
     return result_pol
 
+
+def map_ndarray_to_array(ndarray):
+    result_pol = []
+    for i in range(len(ndarray[0].coef)):
+        result_pol.append(ndarray[0].coef[int(i)])
+    return result_pol
 
 def multiply_polynoms(pol1, pol2):
     multiplied_pol = [0]*(len(pol1) + len(pol2)-1)
@@ -74,6 +97,12 @@ def multiply_polynoms(pol1, pol2):
         for o2, i2 in enumerate(pol2):
             multiplied_pol[o1+o2] += i1*i2
     return multiplied_pol
+
+
+def multiply_each_element_of_polynom(polynom, factor):
+    for i in range(len(polynom)):
+        polynom[i] = polynom[i]*factor
+    return polynom
 
 
 if __name__ == '__main__':
