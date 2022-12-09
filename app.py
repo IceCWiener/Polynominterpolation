@@ -28,6 +28,8 @@ def create_polynom(sampling_points_list):
             hermite_polynom = Hermite()
             hermite_polynom.get_x_values(sampling_points_list)
             hermite_polynom.get_coefficients(sampling_points_list)
+            new_polynom_with_brackets = generate_polynom_with_brackets(hermite_polynom.pyramid_matrix, hermite_polynom.x_values)
+            print(f'p(x) = {new_polynom_with_brackets}')
             return hermite_polynom
 
         if x_n == len(sampling_points_list) - 2:
@@ -37,23 +39,31 @@ def create_polynom(sampling_points_list):
             return newton_polynom
 
 
-def generate_multiplied_out_polynom(pyramid_matrix, x_values):
+def generate_polynom_with_brackets(pyramid_matrix, x_values):
     coefficients = pyramid_matrix[0]
-    multiplied_out_polynom = f'{coefficients[0]}'
+    bracket_polynom = f'{coefficients[0]}'
     linear_factor = ""
     for i in range(len(pyramid_matrix[0])-1):
         linear_factor += f'(x-{x_values[i]})'
         summand = f'{coefficients[i+1]}{linear_factor}'
-        multiplied_out_polynom = multiplied_out_polynom + " + " + summand
-    return multiplied_out_polynom
+        bracket_polynom = bracket_polynom + " + " + summand
+    return bracket_polynom
+
+
+def generate_multipliers(pyramid_matrix, x_values):
+    coefficients = []
+    for i in range(len(pyramid_matrix[0])):
+        coefficients.append(pyramid_matrix[0][i])
+
+    coefficients[0] += coefficients[2]*(-1)*x_values[1]*(-1)*x_values[0] + coefficients[1]*(-1)*x_values[0]
+    coefficients[1] += coefficients[2]*(-1)*x_values[1] + coefficients[2]*(-1)*x_values[0]
+
+    return coefficients
 
 
 if __name__ == '__main__':
     new_sampling_points_list = collect_sampling_points()
-    print(new_sampling_points_list)
+    print(f'Stützstellen: {new_sampling_points_list}')
     polynom = create_polynom(new_sampling_points_list)
-    try:
-        new_multiplied_out_polynom = generate_multiplied_out_polynom(polynom.pyramid_matrix, polynom.x_values)
-        print(new_multiplied_out_polynom)
-    except AttributeError:
-        print("Bitte mehr als eine Stützstelle eingeben")
+
+
