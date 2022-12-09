@@ -4,6 +4,27 @@ import sympy as sy
 
 class Newton:
     # Erstellen von Newtons "Pyramide" um Koeffizienten/Multiplikatoren des Polynoms zu berechnen
+
+    def __init__(self):
+        self.coefficients = self.newton_test()
+
+    def newton_test(self):
+        x_vals = [-1, 0, 1, 2]
+        y_vals = [1, 1, 2, 0]
+        xx_arr = np.array([1, 2, 3])
+        xx = [1, 2, 3]
+        yy = [3, 2, 1]
+        x_test2 = np.arange(-5, 2.1, .1)
+        x_test = np.array(x_vals)
+        coefficients = self.divided_differences(x_vals, y_vals)
+
+        print(self.newton_poly(coefficients, x_vals, x_vals))
+        return self.get_coefficients(x_vals, y_vals)
+
+    def get_coefficients(self, x_values, y_values):
+        self.coefficients = self.divided_differences(x_values, y_values)
+        return self.coefficients
+
     def divided_differences(self, x_values, y_values):
         n = len(y_values) # n-1 = Grad des Polynoms
 
