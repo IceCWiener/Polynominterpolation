@@ -1,9 +1,7 @@
 from hermite import Hermite
 from Newton import Newton
-<<<<<<< HEAD
-=======
 import numpy as np
->>>>>>> c257f4a (feat: ausmultiplizieren with numpy)
+
 def collect_sampling_points():
     sampling_points_list = []
     hermite_var = False
