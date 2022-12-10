@@ -36,7 +36,7 @@ def create_polynom(sampling_points_list):
             print("wir machen Newton und Lagrange")
             newton_polynom = Newton()
             lagrange_polynom = Lagrange()
-            return newton_polynom
+            return newton_polynom, lagrange_polynom
 
 
 def generate_polynom_with_brackets(pyramid_matrix, x_values):

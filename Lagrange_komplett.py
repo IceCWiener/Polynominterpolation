@@ -33,7 +33,7 @@ class Lagrange:
             li_x_wert = 1
         print("\nli_x_Werte", alle_li_x_werte, "mit li_function", alle_li_function, "\n")
         
-        alle_li_function = [1,-5,6,1,-4,3,1,-3,2]
+        #alle_li_function = [1,-5,6,1,-4,3,1,-3,2]
         return alle_li_function, alle_li_x_werte
 
     # Li-function erstellen = li_function / li_x_wert
@@ -43,7 +43,7 @@ class Lagrange:
 
         for i in range(n):
             for j in range(n):
-                Li_function_teil = alle_li_function[j+(i*n)] / alle_li_x_werte[i]
+                Li_function_teil = alle_li_function[j, j+(i*n)] / alle_li_x_werte[i]
                 Li_function.append(Li_function_teil)
         
         print("Li_function",Li_function)
