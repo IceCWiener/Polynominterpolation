@@ -43,7 +43,7 @@ class Lagrange:
 
         for i in range(n):
             for j in range(n):
-                Li_function_teil = alle_li_function[j, j+(i*n)] / alle_li_x_werte[i]
+                Li_function_teil = alle_li_function[j+(i*n)] / alle_li_x_werte[i]
                 Li_function.append(Li_function_teil)
         
         print("Li_function",Li_function)
@@ -61,7 +61,7 @@ class Lagrange:
         return polynom  
 
     # Polynom sortieren/zusammenfassen 
-    def normalform_poly(self, polynom):
+    def normalform_poly(self,n, polynom):
         polynom_result = []
         
         for i in range(n):
@@ -75,7 +75,7 @@ class Lagrange:
         return polynom_result
 
     # Ausgabe des Polynoms
-    def ausgabe_poly(self, polynom_result):    
+    def ausgabe_poly(self,n, polynom_result):    
         ausgabe = []
         ausgabe_teil = 0
 
@@ -87,14 +87,15 @@ class Lagrange:
         print("Ausgabe: p(x) =", ausgabe)
         return ausgabe
 
-n = 3
-stützstellen = [1,2,3]
-stützwerte = [5,0,-4]
-print("Stützstellen: ", stützstellen)
-print("Stützwerte: ", stützwerte)
-w_function = Lagrange().create_wfunction(stützstellen)
-li_function = Lagrange().create_li_function(stützstellen, w_function)
-Li_function = Lagrange().create_Li_function(n,li_function[0],li_function[1])
-polynom = Lagrange().calculate_polynom(n,stützwerte,Li_function)
-norm_poly = Lagrange().normalform_poly(polynom)
-ausgabe = Lagrange().ausgabe_poly(norm_poly)
+    def lagrange_manager(self):
+        n = 3
+        stützstellen = [1,2,3]
+        stützwerte = [5,0,-4]
+        print("Stützstellen: ", stützstellen)
+        print("Stützwerte: ", stützwerte)
+        w_function = Lagrange().create_wfunction(stützstellen)
+        li_function = Lagrange().create_li_function(stützstellen, w_function)
+        Li_function = Lagrange().create_Li_function(n,li_function[0],li_function[1])
+        polynom = Lagrange().calculate_polynom(n,stützwerte,Li_function)
+        norm_poly = Lagrange().normalform_poly(n,polynom)
+        ausgabe = Lagrange().ausgabe_poly(n,norm_poly)
