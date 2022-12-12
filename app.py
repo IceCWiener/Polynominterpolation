@@ -17,7 +17,9 @@ def collect_sampling_points():
     #     sampling_point = (int(input("Bitte X-wert der " + str(i + 1) + "ten Stützstelle eingeben: ")), int(input("Bitte Y-wert der " + str(i + 1) + "ten Stützstelle eingeben: ")))
     #     sampling_points_list.append(sampling_point)
     #     i += 1
-    xy_values = [(1, 1), (1, 4), (2, 3), (2, 1), (2, 2)]
+    
+    xy_values = [(1, 1), (1, 4), (2, 3), (2, 1), (2, 2)] #Hermite
+    #xy_values = [(1, 1), (3, 4), (2, 3), (5, 1), (8, 2)] #Else
     return xy_values
 
 
@@ -32,8 +34,8 @@ def create_polynom(xy_values):
             hermite_var = True
             print("wir machen Hermit")
             hermite_polynom = Hermite()
-            hermite_polynom.get_coefficients(xy_values)
-            standard_form_polynom_coef = ut.generate_polynom_coefficients(hermite_polynom.coefficients, hermite_polynom.x_values)
+            herm_coef = hermite_polynom.get_coefficients(xy_values)
+            standard_form_polynom_coef = ut.generate_polynom_coefficients(hermite_polynom.coefficients, x_values) # deleted "hermite_polynom.coefficients" from first param
             pretty_polynom = ut.transform_coefficients_to_pretty_polynom(standard_form_polynom_coef)
             print(pretty_polynom)
             return hermite_polynom
@@ -42,14 +44,14 @@ def create_polynom(xy_values):
             print("wir machen Newton und Lagrange")
             newton_polynom = Newton()
             lagrange_polynom = Lagrange()
-            x_values = lagrange_polynom.get_x_values(sampling_points_list)
-            y_values = lagrange_polynom.get_y_values(sampling_points_list)
+            #x_values = ut.get_x_values(xy_values)
+            #y_values = ut.get_y_values(xy_values)
             w_function = lagrange_polynom.create_wfunction(x_values)
             li_function = lagrange_polynom.create_li_function(x_values, w_function)
-            Li_function = lagrange_polynom.create_Li_function(xy1,li_function[0],li_function[1])
-            polynom = lagrange_polynom.calculate_polynom(xy1,y_values,Li_function)
-            norm_poly = lagrange_polynom.normalform_poly(xy1,polynom)
-            ausgabe = lagrange_polynom.ausgabe_poly(xy1,norm_poly)
+            Li_function = lagrange_polynom.create_Li_function(len(xy1),li_function[0],li_function[1])
+            polynom = lagrange_polynom.calculate_polynom(len(xy1),y_values,Li_function)
+            norm_poly = lagrange_polynom.normalform_poly(len(xy1),polynom)
+            ausgabe = lagrange_polynom.ausgabe_poly(len(xy1),norm_poly)
             return newton_polynom, lagrange_polynom
 
 if __name__ == '__main__':

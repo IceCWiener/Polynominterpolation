@@ -1,9 +1,9 @@
 import numpy as np    
-from utility import Utility 
+from utility import Utility
 
 class Lagrange:
-   
-    print("test")
+    def __init__(self) -> None:
+        self.ut = Utility()
 
     # Stützstellen mit negativem Vorzeichen erzeugen
     def create_wfunction(self, stützstellen):
@@ -23,8 +23,9 @@ class Lagrange:
         for i in range(len(stützstellen)):
             li_function = w_function.copy()
             li_function.pop(i) # (x-1)(x-2)
-            multiply_li_function = Utility.generate_polynom_coefficients(1,li_function)
-            alle_li_function.append(multiply_li_function)
+            multiply_li_function = self.ut.generate_polynom_coefficients([1],li_function)
+            for k in multiply_li_function:
+                alle_li_function.append(k)
 
             # xi werte in Funktion einsetzten 
             for j in range(len(li_function)):
@@ -38,7 +39,7 @@ class Lagrange:
         return alle_li_function, alle_li_x_werte
 
     # Li-function erstellen = li_function / li_x_wert
-    def create_Li_function(self, n, alle_li_function, alle_li_x_werte):
+    def create_Li_function(self, n: int, alle_li_function: list[float], alle_li_x_werte: list):
         Li_function = []
         Li_function_teil = 0
 
