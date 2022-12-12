@@ -42,6 +42,14 @@ def create_polynom(xy_values):
             print("wir machen Newton und Lagrange")
             newton_polynom = Newton()
             lagrange_polynom = Lagrange()
+            x_values = lagrange_polynom.get_x_values(sampling_points_list)
+            y_values = lagrange_polynom.get_y_values(sampling_points_list)
+            w_function = lagrange_polynom.create_wfunction(x_values)
+            li_function = lagrange_polynom.create_li_function(x_values, w_function)
+            Li_function = lagrange_polynom.create_Li_function(xy1,li_function[0],li_function[1])
+            polynom = lagrange_polynom.calculate_polynom(xy1,y_values,Li_function)
+            norm_poly = lagrange_polynom.normalform_poly(xy1,polynom)
+            ausgabe = lagrange_polynom.ausgabe_poly(xy1,norm_poly)
             return newton_polynom, lagrange_polynom
 
 if __name__ == '__main__':
