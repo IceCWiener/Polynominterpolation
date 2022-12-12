@@ -1,8 +1,9 @@
 import numpy as np    
-from Newton import Newton
+from utility import Utility 
 
 class Lagrange:
    
+    print("test")
 
     # Stützstellen mit negativem Vorzeichen erzeugen
     def create_wfunction(self, stützstellen):
@@ -22,7 +23,7 @@ class Lagrange:
         for i in range(len(stützstellen)):
             li_function = w_function.copy()
             li_function.pop(i) # (x-1)(x-2)
-            multiply_li_function = Newton().multiply_poly(li_function)
+            multiply_li_function = Utility.generate_polynom_coefficients(1,li_function)
             alle_li_function.append(multiply_li_function)
 
             # xi werte in Funktion einsetzten 
@@ -86,16 +87,3 @@ class Lagrange:
                ausgabe.append("+")
         print("Ausgabe: p(x) =", ausgabe)
         return ausgabe
-
-    def lagrange_manager(self):
-        n = 3
-        stützstellen = [1,2,3]
-        stützwerte = [5,0,-4]
-        print("Stützstellen: ", stützstellen)
-        print("Stützwerte: ", stützwerte)
-        w_function = Lagrange().create_wfunction(stützstellen)
-        li_function = Lagrange().create_li_function(stützstellen, w_function)
-        Li_function = Lagrange().create_Li_function(n,li_function[0],li_function[1])
-        polynom = Lagrange().calculate_polynom(n,stützwerte,Li_function)
-        norm_poly = Lagrange().normalform_poly(n,polynom)
-        ausgabe = Lagrange().ausgabe_poly(n,norm_poly)
