@@ -150,6 +150,8 @@ class Newton:
         
         return result
 
+
+
 x_vals = [1, 2, 3, 4]
 y_vals = [5, 2, 5, -1]
 # coeff -> [5.0, -3.0, 3.0, -2.5] -> ausmultipliziert ((x-5)*(x-(-3))*(x-3)*(x-(-2.5))) -> x^4 - 6 x^3 + 5 x^2
@@ -158,4 +160,4 @@ nt = Newton()
 coefficients = nt.divided_differences(x_vals, y_vals)
 
 # print(coefficients)
-print(nt.newton_poly(coefficients, [0, 5, 6, 1], x_vals))
+#print(nt.newton_poly(coefficients, [0, 5, 6, 1], x_vals))
