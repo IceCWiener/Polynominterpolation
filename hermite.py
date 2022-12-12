@@ -1,5 +1,6 @@
 import math
 import numpy as np
+from utility import Utility
 
 
 class Hermite:
@@ -10,40 +11,13 @@ class Hermite:
         self.x_values = []
         self.y_values = []
 
+        self.ut = Utility()
+
     def get_coefficients(self, xy_list):
-        y_values = self.get_y_values(xy_list)
-        x_values = self.get_x_values(xy_list)
+        y_values = self.ut.get_y_values(xy_list)
+        x_values = self.ut.get_x_values(xy_list)
         self.coefficients = self.divided_differences(x_values, y_values, xy_list)
         return self.coefficients
-
-    def get_y_values(self, xy_list):
-        y_values = []
-        i = 0
-
-        while i < len(xy_list) - 1:
-            if xy_list[i][0] == xy_list[i + 1][0]:
-                for j in range(len(xy_list) - 1, i, -1):
-                        if i >= len(xy_list):
-                            return y_values
-                        if xy_list[i][0] == xy_list[j][0]:
-                            k = i
-                            while i <= j:
-                                y_values.append(xy_list[k][1])
-                                i += 1
-            else:
-                y_values.append(xy_list[i][1])
-                i += 1
-
-        y_values.append(xy_list[len(xy_list) - 1][1])
-        self.y_values = y_values
-        return y_values
-
-    def get_x_values(self, xy_list):
-        x_values = []
-        for i in range(len(xy_list)):
-            x_values.append(xy_list[i][0])
-        self.x_values = x_values
-        return x_values
 
     def divided_differences(self, x_values, y_values, xy_list):
         n = len(y_values)  # n-1 = Grad des Polynoms
