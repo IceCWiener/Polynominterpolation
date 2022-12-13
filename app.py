@@ -77,3 +77,4 @@ if __name__ == '__main__':
     polynom = create_polynom(xy_values)
     for i in polynom:
         print(i)
+    input("Enter drücken um Programm zu beenden")
