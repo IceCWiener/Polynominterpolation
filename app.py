@@ -1,5 +1,5 @@
 from hermite import Hermite
-from newton import Newton
+from Newton import Newton
 from Lagrange_komplett import Lagrange
 from utility import Utility
 
@@ -20,7 +20,8 @@ def collect_xy_values():
     # xy_values = [(1, 1), (1, 4), (2, 3), (2, 1), (2, 2)] #Hermite
     # xy_values = [(1, 1), (3, 4), (2, 3), (5, 1), (8, 2)]  # Else
     # Newton Test -> (11 x^3)/72 - (145 x^2)/72 + (85 x)/12 - 3
-    xy_values = [(0, -3), (6, 0), (8, 3), (9, 9)]
+    #xy_values = [(0, -3), (6, 0), (8, 3), (9, 9)]
+    xy_values = [(1, 5), (2, 1), (3, -4)]
 
     return xy_values
 
