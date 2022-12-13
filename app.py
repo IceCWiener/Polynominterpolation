@@ -39,7 +39,7 @@ def create_polynom(xy_values):
         herm_coef = hermite_polynom.get_coefficients(xy_values)
         standard_form_polynom_coef = util.generate_polynom_coefficients(
             hermite_polynom.coefficients, x_values)
-        pretty_polynom = util.transform_coefficients_to_pretty_polynom(
+        pretty_polynom = util.create_string_polynomial(
             standard_form_polynom_coef)
         # print(pretty_polynom)
 
@@ -58,7 +58,9 @@ def create_polynom(xy_values):
         polynom = lagrange_polynom.calculate_polynom(
             xy_len, y_values, Li_function)
         norm_poly = lagrange_polynom.normalform_poly(xy_len, polynom)
-        ausgabe = lagrange_polynom.ausgabe_poly(xy_len, norm_poly)
+        pretty_polynom = "Lagrange: "+ util.create_string_polynomial(
+            norm_poly)
+        
 
         # Newton
         newt_coeffs = newt.newton_div_diff(x_values, y_values)
@@ -66,11 +68,11 @@ def create_polynom(xy_values):
         poly_coeffs = util.generate_polynom_coefficients(
             newt_coeffs, x_values)
         poly_coeffs = util.round_list(poly_coeffs, 3)
-        pretty_newt = util.create_string_polynomial(
+        pretty_newt = "Newton: "+ util.create_string_polynomial(
             poly_coeffs)
         #print("\n\nNewton's Polynome: " + pretty_newt)
 
-        return [pretty_newt, str(ausgabe)]
+        return [pretty_newt, pretty_polynom]
 
 
 if __name__ == '__main__':

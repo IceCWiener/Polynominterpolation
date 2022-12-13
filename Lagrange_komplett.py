@@ -7,7 +7,6 @@ class Lagrange:
 
     # li Funktion erstellen
     def create_li_function(self, stützstellen):
-        print("stützstellen", stützstellen)
         alle_li_function = []
         alle_li_x_werte = []
         li_x_wert = 1
@@ -25,7 +24,6 @@ class Lagrange:
                 li_x_wert = li_x_wert * li_x_wert_teil
             alle_li_x_werte.append(li_x_wert)
             li_x_wert = 1
-        print("\nli_x_Werte", alle_li_x_werte, "mit li_function", alle_li_function, "\n")
         
         return alle_li_function, alle_li_x_werte
 
@@ -39,7 +37,6 @@ class Lagrange:
                 Li_function_teil = alle_li_function[j+(i*n)] / alle_li_x_werte[i]
                 Li_function.append(Li_function_teil)
         
-        print("Li_function",Li_function)
         return Li_function
 
     # Polynom berechnen mit Stützwerten * Li Werte 
@@ -50,7 +47,7 @@ class Lagrange:
             for j in range(n):
                 polynomteil = stützwerte[i] * Li_function[j+(i*n)] 
                 polynom.append(polynomteil)
-        print("Polynom: ",polynom)  
+ 
         return polynom  
 
     # Polynom sortieren/zusammenfassen 
@@ -64,18 +61,5 @@ class Lagrange:
                 teil_poly = teil_poly + polynom[i+(j*n)]
         
             polynom_result.append(teil_poly)
-        print("fertiges Polynom:", polynom_result)
+        
         return polynom_result
-
-    # Ausgabe des Polynoms
-    def ausgabe_poly(self,n, polynom_result):    
-        ausgabe = []
-        ausgabe_teil = 0
-
-        for i in range(n):
-           ausgabe_teil = polynom_result[i] , "* x^" , n-i-1
-           ausgabe.append(ausgabe_teil)
-           if i < n-1:
-               ausgabe.append("+")
-        print("Ausgabe: p(x) =", ausgabe)
-        return ausgabe

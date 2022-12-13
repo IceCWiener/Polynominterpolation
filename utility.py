@@ -88,12 +88,6 @@ class Utility:
             result_pol.append(ndarray[0].coef[int(i)])
         return result_pol
 
-    def transform_coefficients_to_pretty_polynom(self, coefficients):
-        standard_form_polynom = "p(x) = "
-        for i in range(len(coefficients)-1, -1, -1):
-            standard_form_polynom += f'{coefficients[i]} x^{i} + '
-        return standard_form_polynom
-
     def create_string_polynomial(self, coeffs):
         str_poly = ""
         degree = len(coeffs) - 1
