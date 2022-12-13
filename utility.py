@@ -9,7 +9,7 @@ class Utility:
         for i in range(n):
             p = [1.]
             for j in range(i):
-                p_temp = [-x_values[j], 1.] # (x - x_j)
+                p_temp = [-x_values[j], 1.]  # (x - x_j)
                 p = self.multiply_polynoms(p, p_temp)
             p = self.multiply_each_element_of_polynom(p, coefficients[i])
             final_pol = self.add_polynoms(final_pol, p)
@@ -38,7 +38,7 @@ class Utility:
         max_length = max(len(pol1), len(pol2))
         result = [0] * max_length
 
-        if (len(pol1)>=len(pol2)):
+        if (len(pol1) >= len(pol2)):
             longer_pol = pol1
             short_pol = pol2
         else:
@@ -67,13 +67,13 @@ class Utility:
         while i < len(xy_list) - 1:
             if xy_list[i][0] == xy_list[i + 1][0]:
                 for j in range(len(xy_list) - 1, i, -1):
-                        if i >= len(xy_list):
-                            return y_values
-                        if xy_list[i][0] == xy_list[j][0]:
-                            k = i
-                            while i <= j:
-                                y_values.append(xy_list[k][1])
-                                i += 1
+                    if i >= len(xy_list):
+                        return y_values
+                    if xy_list[i][0] == xy_list[j][0]:
+                        k = i
+                        while i <= j:
+                            y_values.append(xy_list[k][1])
+                            i += 1
             else:
                 y_values.append(xy_list[i][1])
                 i += 1
@@ -81,16 +81,6 @@ class Utility:
         y_values.append(xy_list[len(xy_list) - 1][1])
         self.y_values = y_values
         return y_values
-
-    def generate_polynom_with_brackets(self, pyramid_matrix, x_values):
-        coefficients = pyramid_matrix[0]
-        bracket_polynom = f'{coefficients[0]}'
-        linear_factor = ""
-        for i in range(len(pyramid_matrix[0])-1):
-            linear_factor += f'(x-{x_values[i]})'
-            summand = f'{coefficients[i+1]}{linear_factor}'
-            bracket_polynom = bracket_polynom + " + " + summand
-        return bracket_polynom
 
     def map_ndarray_to_array(self, ndarray):
         result_pol = []
@@ -103,3 +93,35 @@ class Utility:
         for i in range(len(coefficients)-1, -1, -1):
             standard_form_polynom += f'{coefficients[i]} x^{i} + '
         return standard_form_polynom
+
+    def create_string_polynomial(self, coeffs):
+        str_poly = ""
+        degree = len(coeffs) - 1
+        coeffs = self.flip_array(coeffs)
+        str_poly = "p(x) = "
+
+        for i in coeffs:
+            if degree > 1:
+                str_poly = str_poly + \
+                    "(" + str(i) + ")*x^" + str(degree) + " + "
+            elif degree == 1:
+                str_poly = str_poly + "(" + str(i) + ")*x "
+            else:
+                str_poly = str_poly + " + (" + str(i) + ")"
+
+            degree = degree - 1
+        return str_poly
+
+    def flip_array(self, arr):
+        result = []
+
+        for i in range(len(arr) - 1, -1, -1):
+            result.append(arr[i])
+
+        return result
+
+    def round_list(self, list, decimal):
+        for i in range(len(list)):
+            list[i] = round(list[i], decimal)
+
+        return list
