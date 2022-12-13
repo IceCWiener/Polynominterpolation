@@ -138,3 +138,13 @@ class Utility:
                 return False
 
         return False
+
+    def create_zeros_end_one_list(self, num: int):
+        list = []
+
+        for i in range(num-1):
+            list.append(0)
+
+        list.append(1)
+
+        return list

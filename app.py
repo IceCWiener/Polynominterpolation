@@ -31,6 +31,8 @@ def create_polynom(xy_values):
     x_values = util.get_x_values(xy_values)
     y_values = util.get_y_values(xy_values)
 
+    print(util.create_zeros_end_one_list(5))
+
     # for x_n in range(len(xy_values) - 1):
     #    xy1 = xy_values[x_n]
     #    xy2 = xy_values[x_n + 1]
