@@ -1,5 +1,6 @@
 import unittest
 from utility import Utility
+from hermite import Hermite
 
 
 class TestApp(unittest.TestCase):
@@ -49,9 +50,16 @@ class TestApp(unittest.TestCase):
     def test_should_return_standard_polynom(self):
         util = Utility()
         coeffiecients = [-3.0, 1.0, 7.0, -5.0, 1.0]
-        expected = "p(x) = 1.0 x^4 + -5.0 x^3 + 7.0 x^2 + 1.0 x^1 + -3.0 x^0 + "
-        self.assertEqual(
-            expected, util.transform_coefficients_to_pretty_polynom(coeffiecients))
+        expected = "p(x) = (1.0)*x^4 + (-5.0)*x^3 + (7.0)*x^2 + (1.0)*x  + (-3.0)"
+        self.assertEqual(expected, util.create_string_polynomial(coeffiecients))
+
+    def test_should_return_standard_polynom_given_weird_ableitung(self):
+        hermite = Hermite()
+        xy_values = [(2, 3), (2, 432432), (2, 3), (3, 4), (3, 4)]
+        coefficients = hermite.get_coefficients(xy_values)
+        polynom = hermite.generate_polynom_coefficients(coefficients)
+        expected = [5, 4, 8]
+        self.assertEqual(expected, polynom)
 
 
 if __name__ == '__main__':
