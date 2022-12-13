@@ -2,12 +2,12 @@ from utility import Utility
 
 
 class Newton:
-    # Erstellen von Newtons "Pyramide" um Koeffizienten/Multiplikatoren des Polynoms zu berechnen
 
     def __init__(self):
         #self.coefficients = self.newton_test()
         self.ut = Utility()
 
+    # Erstellen von Newtons "Pyramide" um Koeffizienten/Multiplikatoren des Polynoms zu berechnen
     def newton_div_diff(self, x_values, y_values):
         n = len(y_values)  # n-1 = Grad des Polynoms
 
