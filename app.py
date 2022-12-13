@@ -21,7 +21,7 @@ def collect_xy_values():
     xy_values = [(1, 1), (3, 4), (2, 3), (5, 1), (8, 2)]  # Else
     # Newton Test -> (11 x^3)/72 - (145 x^2)/72 + (85 x)/12 - 3
     #xy_values = [(0, -3), (6, 0), (8, 3), (9, 9)]
-    xy_values = [(1, 5), (2, 1), (3, -4), (5, 7), (2, 9)]
+    xy_values = [(1, 5), (2, 1), (3, -4)]
 
     return xy_values
 
@@ -57,9 +57,8 @@ def create_polynom(xy_values):
 
         # Lagrange
         lagrange_polynom = Lagrange()
-        w_function = lagrange_polynom.create_wfunction(x_values)
         li_function = lagrange_polynom.create_li_function(
-            x_values, w_function)
+            x_values)
         Li_function = lagrange_polynom.create_Li_function(
             xy_len, li_function[0], li_function[1])
         polynom = lagrange_polynom.calculate_polynom(

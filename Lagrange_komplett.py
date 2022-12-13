@@ -5,26 +5,17 @@ class Lagrange:
     def __init__(self) -> None:
         self.ut = Utility()
 
-    # Stützstellen mit negativem Vorzeichen erzeugen
-    def create_wfunction(self, stützstellen):
-        w_function = []
-
-        for i in range(len(stützstellen)):
-            w_function.append(stützstellen[i])
-        
-        return w_function  
-
     # li Funktion erstellen
-    def create_li_function(self, stützstellen, w_function):
+    def create_li_function(self, stützstellen):
+        print("stützstellen", stützstellen)
         alle_li_function = []
         alle_li_x_werte = []
         li_x_wert = 1
 
         for i in range(len(stützstellen)):
-            li_function = w_function.copy()
+            li_function = stützstellen.copy()
             li_function.pop(i) # (x-1)(x-2)
-            print(li_function)
-            multiply_li_function = self.ut.generate_polynom_coefficients([0,0,0,0,1],li_function)
+            multiply_li_function = self.ut.generate_polynom_coefficients(self.ut.create_zeros_end_one_list(len(stützstellen)),li_function)
             for k in multiply_li_function:
                 alle_li_function.append(k)
 
