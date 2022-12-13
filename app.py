@@ -1,5 +1,5 @@
 from hermite import Hermite
-from newton import Newton
+from Newton import Newton
 from Lagrange_komplett import Lagrange
 from utility import Utility
 

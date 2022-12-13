@@ -10,7 +10,7 @@ class Lagrange:
         w_function = []
 
         for i in range(len(stützstellen)):
-            w_function.append(-stützstellen[i])
+            w_function.append(stützstellen[i])
         
         return w_function  
 
@@ -23,23 +23,24 @@ class Lagrange:
         for i in range(len(stützstellen)):
             li_function = w_function.copy()
             li_function.pop(i) # (x-1)(x-2)
-            multiply_li_function = self.ut.generate_polynom_coefficients([1],li_function)
+            print(li_function)
+            multiply_li_function = self.ut.generate_polynom_coefficients([0,0,1],li_function)
             for k in multiply_li_function:
                 alle_li_function.append(k)
 
             # xi werte in Funktion einsetzten 
             for j in range(len(li_function)):
-                li_x_wert_teil = (stützstellen[i] + li_function[j]) 
+                li_x_wert_teil = (stützstellen[i] - li_function[j]) 
                 li_x_wert = li_x_wert * li_x_wert_teil
             alle_li_x_werte.append(li_x_wert)
             li_x_wert = 1
         print("\nli_x_Werte", alle_li_x_werte, "mit li_function", alle_li_function, "\n")
         
-        #alle_li_function = [1,-5,6,1,-4,3,1,-3,2]
         return alle_li_function, alle_li_x_werte
 
     # Li-function erstellen = li_function / li_x_wert
     def create_Li_function(self, n: int, alle_li_function: list[float], alle_li_x_werte: list):
+        n = 3
         Li_function = []
         Li_function_teil = 0
 
@@ -54,6 +55,7 @@ class Lagrange:
     # Polynom berechnen mit Stützwerten * Li Werte 
     def calculate_polynom(self, n, stützwerte, Li_function):
         polynom = []
+        n = 3
         
         for i in range(n):
             for j in range(n):

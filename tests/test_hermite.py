@@ -1,13 +1,14 @@
 import unittest
 from hermite import Hermite
+from utility import Utility
 
 
 class TestHermite(unittest.TestCase):
     def test_should_return_x_list(self):
-        hermite = Hermite()
+        util = Utility()
         xy_list = [(2, 3), (5, 7)]
         expected = [2, 5]
-        result = hermite.get_x_values(xy_list)
+        result = util.get_x_values(xy_list)
         self.assertEqual(expected, result)
 
     def test_should_return_coefficients(self):
@@ -50,13 +51,14 @@ class TestHermite(unittest.TestCase):
             x_values, y_values, sampling_points))
 
     def test_should_return_y_values_when_mathepeter_sampling_points(self):
-        hermite = Hermite()
+        util = Utility()
         x_values = [1, 1, 2, 2, 2]
         expected = [1, 1, 3, 3, 3]
         sampling_points = [(1, 1), (1, 4), (2, 3), (2, 1), (2, 2)]
-        self.assertEqual(expected, hermite.get_y_values(sampling_points))
+        self.assertEqual(expected, util.get_y_values(sampling_points))
 
     # def test_should_return_coefficients_when_sampling_point_y_value_zero(self):
+    #       util = Utility()
     #     hermite = Hermite()
     #     x_values = [1, 2, 10]
     #     y_values = [1, 0, 4]
