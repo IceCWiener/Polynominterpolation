@@ -23,13 +23,10 @@ class Newton:
         for i in range(n):
             pyramid_matrix[i][0] = float(y_values[i])
 
-        # print(pyramid_matrix)
-
         for j in range(1, n):
             for i in range(n-j):
                 # Spalten werden nacheinander von berechneten Koeffizienten gefüllt
                 pyramid_matrix[i][j] = (
                     pyramid_matrix[i+1][j-1] - pyramid_matrix[i][j-1]) / (x_values[i+j] - x_values[i])
-        # print(pyramid_matrix)
 
         return pyramid_matrix[0]  # erste Reihe wird zurückgegeben

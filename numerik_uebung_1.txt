@@ -1,0 +1,403 @@
+
+
+---- app.py
+
+from hermite import Hermite
+from newton import Newton
+from lagrange import Lagrange
+from utility import Utility
+
+
+def collect_xy_values():
+    xy_values = []
+    i = 0
+    while True:
+        if i != 0:
+            check_if_wants_to_continue = input("möchten Sie einen " + str(
+                i + 1) + "te Stützpunkt eingeben bitte Enter drücken, andernfalls geben sie n ein: ")
+            if check_if_wants_to_continue == "n":
+                break
+        xy_point = (int(input("Bitte Stützstelle des " + str(i + 1) + "ten Punktes eingeben: ")),
+                    int(input("Bitte Stützwert des " + str(i + 1) + "ten Punktes eingeben: ")))
+        xy_values.append(xy_point)
+        i += 1
+
+    return xy_values
+
+
+def create_polynom(xy_values):
+    util = Utility()
+    xy_len = len(xy_values)
+    use_hermite = util.check_for_duplicate_x_values(xy_values)
+    x_values = util.get_x_values(xy_values)
+    y_values = util.get_y_values(xy_values)
+
+    if use_hermite:
+        print("wir machen Hermit\n")
+        hermite_polynom = Hermite()
+        herm_coef = hermite_polynom.hermite_divided_differences(x_values, y_values, xy_values)
+        standard_form_polynom_coef = util.generate_polynom_coefficients(
+            herm_coef, x_values)
+        standard_form_polynom_coef = util.round_list(
+            standard_form_polynom_coef, 3)
+        pretty_polynom = "Hermite: " + util.create_string_polynomial(
+            standard_form_polynom_coef) + "\n"
+
+        return [pretty_polynom]
+
+    else:
+        print("wir machen Newton und Lagrange\n")
+        newt = Newton()
+
+        # Lagrange
+        lagrange_polynom = Lagrange()
+        li_function = lagrange_polynom.create_li_function(
+            x_values)
+        Li_function = lagrange_polynom.create_Li_function(
+            xy_len, li_function[0], li_function[1])
+        polynom = lagrange_polynom.calculate_polynom(
+            xy_len, y_values, Li_function)
+        norm_poly = lagrange_polynom.normalform_poly(xy_len, polynom)
+        norm_poly = util.round_list(norm_poly, 3)
+        pretty_polynom = "Lagrange: " + util.create_string_polynomial(
+            norm_poly) + "\n"
+
+        # Newton
+        newt_coeffs = newt.newton_div_diff(x_values, y_values)
+        poly_coeffs = util.generate_polynom_coefficients(
+            newt_coeffs, x_values)
+        poly_coeffs = util.round_list(poly_coeffs, 3)
+        pretty_newt = "Newton: " + util.create_string_polynomial(
+            poly_coeffs)
+
+        return [pretty_newt, pretty_polynom]
+
+
+if __name__ == '__main__':
+    util = Utility()
+
+    xy_values = collect_xy_values()
+    print(f'\nStützpunkte: {xy_values}\n')
+    polynom = create_polynom(xy_values)
+    for i in polynom:
+        print(i)
+
+
+---- utility.py
+
+class Utility:
+    def __init__(self):
+        pass
+
+    def generate_polynom_coefficients(self, coefficients, x_values):
+        final_pol = []
+        n = len(coefficients)
+
+        for i in range(n):
+            p = [1.]
+            for j in range(i):
+                p_temp = [-x_values[j], 1.]  # (x - x_j)
+                p = self.multiply_polynoms(p, p_temp)
+            p = self.multiply_each_element_of_polynom(p, coefficients[i])
+            final_pol = self.add_polynoms(final_pol, p)
+
+        return final_pol
+
+    def multiply_polynoms(self, pol1, pol2):
+        multiplied_pol = [0]*(len(pol1) + len(pol2)-1)
+        for o1, i1 in enumerate(pol1):
+            for o2, i2 in enumerate(pol2):
+                multiplied_pol[o1+o2] += i1*i2
+        return multiplied_pol
+
+    def multiply_each_element_of_polynom(self, polynom, factor):
+        for i in range(len(polynom)):
+            polynom[i] = polynom[i]*factor
+        return polynom
+
+    def add_polynoms(self, pol1, pol2):
+        if len(pol1) == 0:
+            return pol2
+
+        if len(pol2) == 0:
+            return pol2
+
+        max_length = max(len(pol1), len(pol2))
+        result = [0] * max_length
+
+        if (len(pol1) >= len(pol2)):
+            longer_pol = pol1
+            short_pol = pol2
+        else:
+            longer_pol = pol2
+            short_pol = pol1
+
+        for i in range(len(longer_pol)):
+            result[i] = longer_pol[i]
+
+        for j in range(len(short_pol)):
+            result[j] += short_pol[j]
+
+        return result
+
+    def get_x_values(self, xy_list):
+        x_values = []
+        for i in range(len(xy_list)):
+            x_values.append(xy_list[i][0])
+        self.x_values = x_values
+        return x_values
+
+    def get_y_values(self, xy_list):
+        y_values = []
+        i = 0
+
+        while i < len(xy_list) - 1:
+            if xy_list[i][0] == xy_list[i + 1][0]:
+                for j in range(len(xy_list) - 1, i, -1):
+                    if i >= len(xy_list):
+                        return y_values
+                    if xy_list[i][0] == xy_list[j][0]:
+                        k = i
+                        while i <= j:
+                            y_values.append(xy_list[k][1])
+                            i += 1
+            else:
+                y_values.append(xy_list[i][1])
+                i += 1
+
+        y_values.append(xy_list[len(xy_list) - 1][1])
+        self.y_values = y_values
+        return y_values
+
+    def map_ndarray_to_array(self, ndarray):
+        result_pol = []
+        for i in range(len(ndarray[0].coef)):
+            result_pol.append(ndarray[0].coef[int(i)])
+        return result_pol
+
+    def create_string_polynomial(self, coeffs):
+        str_poly = ""
+        degree = len(coeffs) - 1
+        coeffs = self.flip_array(coeffs)
+        str_poly = "p(x) = "
+
+        for i in coeffs:
+            if degree > 1:
+                str_poly = str_poly + \
+                    "(" + str(i) + ")*x^" + str(degree) + " + "
+            elif degree == 1:
+                str_poly = str_poly + "(" + str(i) + ")*x "
+            else:
+                str_poly = str_poly + " + (" + str(i) + ")"
+
+            degree = degree - 1
+        return str_poly
+
+    def flip_array(self, arr):
+        result = []
+
+        for i in range(len(arr) - 1, -1, -1):
+            result.append(arr[i])
+
+        return result
+
+    def round_list(self, list, decimal):
+        for i in range(len(list)):
+            list[i] = round(list[i], decimal)
+
+        return list
+
+    # [(1, 2), (1, 3)]
+    def check_for_duplicate_x_values(self, xy_values) -> bool:
+        if len(xy_values) < 2:
+            return False
+
+        for i in range(0, len(xy_values)):
+            for j in range(0, len(xy_values)):
+                if i == j:
+                    continue
+                elif xy_values[i][0] == xy_values[j][0]:
+                    return True
+                else:
+                    continue
+
+        return False
+
+    def create_zeros_end_one_list(self, num: int):
+        list = []
+
+        for i in range(num-1):
+            list.append(0)
+
+        list.append(1)
+
+        return list
+
+---- hermite.py
+
+import math
+from utility import Utility
+
+
+class Hermite:
+
+    def __init__(self):
+        self.coefficients = None
+        self.pyramid_matrix = []
+        self.x_values = []
+        self.y_values = []
+
+        self.ut = Utility()
+
+    def get_coefficients(self, xy_list):
+        y_values = self.ut.get_y_values(xy_list)
+        x_values = self.ut.get_x_values(xy_list)
+        self.coefficients = self.hermite_divided_differences(
+            x_values, y_values, xy_list)
+        return self.coefficients
+
+    def hermite_divided_differences(self, x_values, y_values, xy_list):
+        n = len(y_values)  # n-1 = Grad des Polynoms
+
+        # Erstelle eine mit Nullern gefüllte Matrix
+        pyramid_matrix = []
+
+        for i in range(n):
+            pyramid_matrix.append([])
+            for j in range(n):
+                pyramid_matrix[i].append(0.)
+
+        # erste Spalte der Pyramide wird mit y-Werten gefüllt
+        for i in range(n):
+            pyramid_matrix[i][0] = float(y_values[i])
+
+        for j in range(1, n):
+            for i in range(n - j):
+                # Spalten werden nacheinander von berechneten Koeffizienten gefüllt
+                if (x_values[i + j] - x_values[i]) == 0:
+                    pyramid_matrix[i][j] = self.get_derivation_value(
+                        xy_list, x_values[i], j) / math.factorial(j)
+                else:
+                    pyramid_matrix[i][j] = (
+                        pyramid_matrix[i + 1][j - 1] - pyramid_matrix[i][j - 1]) / (x_values[i + j] - x_values[i])
+        self.pyramid_matrix = pyramid_matrix
+        return pyramid_matrix[0]  # erste Reihe wird zurückgegeben
+
+    def get_derivation_value(self, xy_list, x_values, step):
+        derivation_value = 0
+        for i in range(len(xy_list) - 1):
+            if xy_list[i][0] == x_values:
+                derivation_value = xy_list[i + step][1]
+                break
+        return derivation_value
+
+
+---- newton.py
+
+from utility import Utility
+
+
+class Newton:
+
+    def __init__(self):
+        #self.coefficients = self.newton_test()
+        self.ut = Utility()
+
+    # Erstellen von Newtons "Pyramide" um Koeffizienten/Multiplikatoren des Polynoms zu berechnen
+    def newton_div_diff(self, x_values, y_values):
+        n = len(y_values)  # n-1 = Grad des Polynoms
+
+        # Erstelle eine mit Nullern gefüllte Matrix
+        pyramid_matrix = []
+        for i in range(n):
+            pyramid_matrix.append([])
+
+            for j in range(n):
+                pyramid_matrix[i].append(0.)
+
+        # erste Spalte der Pyramide wird mit y-Werten gefüllt
+        for i in range(n):
+            pyramid_matrix[i][0] = float(y_values[i])
+
+        for j in range(1, n):
+            for i in range(n-j):
+                # Spalten werden nacheinander von berechneten Koeffizienten gefüllt
+                pyramid_matrix[i][j] = (
+                    pyramid_matrix[i+1][j-1] - pyramid_matrix[i][j-1]) / (x_values[i+j] - x_values[i])
+
+        return pyramid_matrix[0]  # erste Reihe wird zurückgegeben
+
+
+---- lagrange.py
+
+
+import numpy as np
+from utility import Utility
+
+class Lagrange:
+    def __init__(self) -> None:
+        self.ut = Utility()
+
+    # li Funktion erstellen
+    def create_li_function(self, stützstellen):
+        alle_li_function = []
+        alle_li_x_werte = []
+        li_x_wert = 1
+
+        for i in range(len(stützstellen)):
+            li_function = stützstellen.copy()
+            li_function.pop(i)
+            multiply_li_function = self.ut.generate_polynom_coefficients(self.ut.create_zeros_end_one_list(len(stützstellen)),li_function)
+            for k in multiply_li_function:
+                alle_li_function.append(k)
+
+            # xi werte in Funktion einsetzten
+            for j in range(len(li_function)):
+                li_x_wert_teil = (stützstellen[i] - li_function[j])
+                li_x_wert = li_x_wert * li_x_wert_teil
+            alle_li_x_werte.append(li_x_wert)
+            li_x_wert = 1
+
+        return alle_li_function, alle_li_x_werte
+
+    # Li-function erstellen = li_function / li_x_wert
+    def create_Li_function(self, n: int, alle_li_function: list[float], alle_li_x_werte: list):
+        Li_function = []
+        Li_function_teil = 0
+
+        for i in range(n):
+            for j in range(n):
+                Li_function_teil = alle_li_function[j+(i*n)] / alle_li_x_werte[i]
+                Li_function.append(Li_function_teil)
+
+        return Li_function
+
+    # Polynom berechnen mit Stützwerten * Li Werte
+    def calculate_polynom(self, n, stützwerte, Li_function):
+        polynom = []
+
+        for i in range(n):
+            for j in range(n):
+                polynomteil = stützwerte[i] * Li_function[j+(i*n)]
+                polynom.append(polynomteil)
+
+        return polynom
+
+    # Polynom sortieren/zusammenfassen
+    def normalform_poly(self,n, polynom):
+        polynom_result = []
+
+        for i in range(n):
+            teil_poly = 0
+            teil_poly = polynom[i]
+            for j in range(1,n):
+                teil_poly = teil_poly + polynom[i+(j*n)]
+
+            polynom_result.append(teil_poly)
+
+        return polynom_result
+
+
+---- ende
+
+

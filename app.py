@@ -1,6 +1,6 @@
 from hermite import Hermite
 from newton import Newton
-from Lagrange_komplett import Lagrange
+from lagrange import Lagrange
 from utility import Utility
 
 
@@ -22,6 +22,7 @@ def collect_xy_values():
 
 
 def create_polynom(xy_values):
+    util = Utility()
     xy_len = len(xy_values)
     use_hermite = util.check_for_duplicate_x_values(xy_values)
     x_values = util.get_x_values(xy_values)

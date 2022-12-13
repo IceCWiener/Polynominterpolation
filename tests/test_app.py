@@ -1,6 +1,7 @@
 import unittest
 from utility import Utility
 from hermite import Hermite
+from app import create_polynom
 
 
 class TestApp(unittest.TestCase):
@@ -53,13 +54,12 @@ class TestApp(unittest.TestCase):
         expected = "p(x) = (1.0)*x^4 + (-5.0)*x^3 + (7.0)*x^2 + (1.0)*x  + (-3.0)"
         self.assertEqual(expected, util.create_string_polynomial(coeffiecients))
 
-    def test_should_return_standard_polynom_given_weird_ableitung(self):
-        hermite = Hermite()
-        xy_values = [(2, 3), (2, 432432), (2, 3), (3, 4), (3, 4)]
-        coefficients = hermite.get_coefficients(xy_values)
-        polynom = hermite.generate_polynom_coefficients(coefficients)
-        expected = [5, 4, 8]
-        self.assertEqual(expected, polynom)
+
+    # def test_should_return_polynom_when_newton(self):
+    #     xy_values = [(1, 54), (11, 34), (12, 34), (13, 34)]
+    #     expected = []
+    #     result = create_polynom(xy_values)
+    #     self.assertEqual(expected, result)
 
 
 if __name__ == '__main__':

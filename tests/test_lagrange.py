@@ -1,5 +1,5 @@
 import unittest
-from Lagrange_komplett import Lagrange
+from lagrange import Lagrange
 
 
 class TestLagrange(unittest.TestCase):
