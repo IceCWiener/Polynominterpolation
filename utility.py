@@ -125,3 +125,16 @@ class Utility:
             list[i] = round(list[i], decimal)
 
         return list
+
+    # [(1, 2), (1, 3)]
+    def check_for_duplicate_x_values(self, xy_values) -> bool:
+        if len(xy_values) < 2:
+            return False
+
+        for i in range(1, len(xy_values)):
+            if xy_values[i-1][0] == xy_values[i][0]:
+                return True
+            else:
+                return False
+
+        return False
