@@ -18,12 +18,6 @@ def collect_xy_values():
         xy_values.append(xy_point)
         i += 1
 
-    # xy_values = [(1, 1), (13, 4), (2, 3), (2, 1), (1, 2)]  # Hermite
-    # xy_values = [(1, 1), (3, 4), (232, 3), (5, 155), (432, 2)]  # Else
-    # Newton Test -> (11 x^3)/72 - (145 x^2)/72 + (85 x)/12 - 3
-    #xy_values = [(0, -3), (6, 0), (8, 3), (9, 9)]
-    #xy_values = [(1, 5), (2, 1), (3, -4)]
-
     return xy_values
 
 
@@ -36,7 +30,7 @@ def create_polynom(xy_values):
     if use_hermite:
         print("wir machen Hermit\n")
         hermite_polynom = Hermite()
-        herm_coef = hermite_polynom.get_coefficients(xy_values)
+        herm_coef = hermite_polynom.hermite_divided_differences(x_values, y_values, xy_values)
         standard_form_polynom_coef = util.generate_polynom_coefficients(
             herm_coef, x_values)
         standard_form_polynom_coef = util.round_list(
