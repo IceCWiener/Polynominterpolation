@@ -24,7 +24,7 @@ class Lagrange:
             li_function = w_function.copy()
             li_function.pop(i) # (x-1)(x-2)
             print(li_function)
-            multiply_li_function = self.ut.generate_polynom_coefficients([0,0,1],li_function)
+            multiply_li_function = self.ut.generate_polynom_coefficients([0,0,0,0,1],li_function)
             for k in multiply_li_function:
                 alle_li_function.append(k)
 
@@ -40,7 +40,6 @@ class Lagrange:
 
     # Li-function erstellen = li_function / li_x_wert
     def create_Li_function(self, n: int, alle_li_function: list[float], alle_li_x_werte: list):
-        n = 3
         Li_function = []
         Li_function_teil = 0
 
@@ -55,7 +54,6 @@ class Lagrange:
     # Polynom berechnen mit Stützwerten * Li Werte 
     def calculate_polynom(self, n, stützwerte, Li_function):
         polynom = []
-        n = 3
         
         for i in range(n):
             for j in range(n):
@@ -67,7 +65,7 @@ class Lagrange:
     # Polynom sortieren/zusammenfassen 
     def normalform_poly(self,n, polynom):
         polynom_result = []
-        
+
         for i in range(n):
             teil_poly = 0
             teil_poly = polynom[i]
