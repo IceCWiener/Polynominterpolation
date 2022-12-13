@@ -32,12 +32,6 @@ def create_polynom(xy_values):
     x_values = util.get_x_values(xy_values)
     y_values = util.get_y_values(xy_values)
 
-    print(util.create_zeros_end_one_list(5))
-
-    # for x_n in range(len(xy_values) - 1):
-    #    xy1 = xy_values[x_n]
-    #    xy2 = xy_values[x_n + 1]
-
     if use_hermite:
         hermite_var = True
         print("wir machen Hermit")
@@ -77,9 +71,6 @@ def create_polynom(xy_values):
         #print("\n\nNewton's Polynome: " + pretty_newt)
 
         return [pretty_newt, str(ausgabe)]
-
-        # else:
-        #   return ["Kein Ergebnis"]
 
 
 if __name__ == '__main__':
