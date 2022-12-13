@@ -18,10 +18,10 @@ def collect_xy_values():
     #     i += 1
 
     # xy_values = [(1, 1), (1, 4), (2, 3), (2, 1), (2, 2)]  # Hermite
-    xy_values = [(1, 1), (3, 4), (2, 3), (5, 1), (8, 2)]  # Else
+    xy_values = [(1, 1), (3, 4), (232, 3), (5, 155), (1, 2)]  # Else
     # Newton Test -> (11 x^3)/72 - (145 x^2)/72 + (85 x)/12 - 3
     #xy_values = [(0, -3), (6, 0), (8, 3), (9, 9)]
-    xy_values = [(1, 5), (2, 1), (3, -4)]
+    #xy_values = [(1, 5), (2, 1), (3, -4)]
 
     return xy_values
 
@@ -33,12 +33,13 @@ def create_polynom(xy_values):
     y_values = util.get_y_values(xy_values)
 
     if use_hermite:
-        hermite_var = True
         print("wir machen Hermit")
         hermite_polynom = Hermite()
         herm_coef = hermite_polynom.get_coefficients(xy_values)
         standard_form_polynom_coef = util.generate_polynom_coefficients(
-            hermite_polynom.coefficients, x_values)
+            herm_coef, x_values)
+        standard_form_polynom_coef = util.round_list(
+            standard_form_polynom_coef, 3)
         pretty_polynom = util.create_string_polynomial(
             standard_form_polynom_coef)
         # print(pretty_polynom)
@@ -58,17 +59,16 @@ def create_polynom(xy_values):
         polynom = lagrange_polynom.calculate_polynom(
             xy_len, y_values, Li_function)
         norm_poly = lagrange_polynom.normalform_poly(xy_len, polynom)
-        pretty_polynom = "Lagrange: "+ util.create_string_polynomial(
+        norm_poly = util.round_list(norm_poly, 3)
+        pretty_polynom = "Lagrange: " + util.create_string_polynomial(
             norm_poly)
-        
 
         # Newton
         newt_coeffs = newt.newton_div_diff(x_values, y_values)
-        newt_coeffs = util.round_list(newt_coeffs, 3)
         poly_coeffs = util.generate_polynom_coefficients(
             newt_coeffs, x_values)
         poly_coeffs = util.round_list(poly_coeffs, 3)
-        pretty_newt = "Newton: "+ util.create_string_polynomial(
+        pretty_newt = "Newton: " + util.create_string_polynomial(
             poly_coeffs)
         #print("\n\nNewton's Polynome: " + pretty_newt)
 

@@ -125,11 +125,14 @@ class Utility:
         if len(xy_values) < 2:
             return False
 
-        for i in range(1, len(xy_values)):
-            if xy_values[i-1][0] == xy_values[i][0]:
-                return True
-            else:
-                return False
+        for i in range(0, len(xy_values)):
+            for j in range(0, len(xy_values)):
+                if i == j:
+                    continue
+                elif xy_values[i][0] == xy_values[j][0]:
+                    return True
+                else:
+                    continue
 
         return False
 
