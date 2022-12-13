@@ -1,5 +1,5 @@
 from hermite import Hermite
-from Newton import Newton
+from newton import Newton
 from Lagrange_komplett import Lagrange
 from utility import Utility
 
@@ -26,7 +26,7 @@ def collect_xy_values():
 
 
 def create_polynom(xy_values):
-    xy_len = 1  # 2  # len(xy_values)-2
+    xy_len = len(xy_values)
     use_hermite = util.check_for_duplicate_x_values(xy_values)
     x_values = util.get_x_values(xy_values)
     y_values = util.get_y_values(xy_values)
@@ -44,7 +44,7 @@ def create_polynom(xy_values):
             hermite_polynom.coefficients, x_values)
         pretty_polynom = util.transform_coefficients_to_pretty_polynom(
             standard_form_polynom_coef)
-        print(pretty_polynom)
+        # print(pretty_polynom)
 
         return [pretty_polynom]
 
@@ -72,7 +72,7 @@ def create_polynom(xy_values):
         poly_coeffs = util.round_list(poly_coeffs, 3)
         pretty_newt = util.create_string_polynomial(
             poly_coeffs)
-        print("\n\nNewton's Polynome: " + pretty_newt)
+        #print("\n\nNewton's Polynome: " + pretty_newt)
 
         return [pretty_newt, str(ausgabe)]
 
