@@ -1,4 +1,4 @@
-
+Autor*innen: Pauline Thiele, Konstantin Regenhardt, Johannis Malinowski, Sophie Mena Chavez, Nina Böhm
 
 ---- app.py
 
