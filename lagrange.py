@@ -31,6 +31,7 @@ class Lagrange:
         Li_function = []
         Li_base = []
         Li_function_teil = 0
+        util = Utility()
 
         for i in range(n):
 
@@ -38,7 +39,7 @@ class Lagrange:
                 Li_function_teil = alle_li_function[j+(i*n)] / alle_li_x_werte[i]
                 Li_function.append(Li_function_teil)
                 Li_base.append(Li_function_teil)
-            print(f'L{i}(x) = ', Li_base)
+            print(f'L{i}(x) = ', util.create_string_polynomial(Li_base))
             Li_base = []
 
         return Li_function

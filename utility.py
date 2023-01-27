@@ -91,7 +91,7 @@ class Utility:
     def create_string_polynomial(self, coeffs):
         degree = len(coeffs) - 1
         coeffs = self.flip_array(coeffs)
-        str_poly = "p(x) = "
+        str_poly = ""
 
         for i in coeffs:
             if degree > 1:

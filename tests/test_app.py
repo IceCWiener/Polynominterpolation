@@ -65,9 +65,9 @@ class TestApp(unittest.TestCase):
         xy_values = [(1, 5), (2, 0), (3, -4)]
         expected = ['Newton: p(x) = (0.5)*x^2 + (-6.5)*x  + (11.0)',
                     'Lagrange: '
-                    'L(x) = (3.0) + (-2.5)*x + (0.5)*x^2\n'
-                    'L(x) = (-3.0) + (+4.0)*x + (-1.0)*x^2\n'
-                    'L(x) = (1.0) + (-1.5)*x + (0.5)*x^2\n'
+                    'L1(x) = (3.0) + (-2.5)*x + (0.5)*x^2\n'
+                    'L2(x) = (-3.0) + (+4.0)*x + (-1.0)*x^2\n'
+                    'L3(x) = (1.0) + (-1.5)*x + (0.5)*x^2\n'
                     'p(x) = (0.5)*x^2 + (-6.5)*x  + (11.0)\n']
         result = create_polynom(xy_values)
         self.assertEqual(expected, result)
