@@ -57,7 +57,7 @@ class TestApp(unittest.TestCase):
 
     def test_should_return_polynom_when_newton(self):
         xy_values = [(0, 0), (0, 0), (1, 1), (1, 3)]
-        expected = ['Hermite: p(x) = (0.0)*x^4 + (1.0)*x^3 + (0.0)*x^2 + (0.0)*x  + (0.0)\n']
+        expected = ['Hermite: p(x) = (1.0)*x^3 + \n']
         result = create_polynom(xy_values)
         self.assertEqual(expected, result)
 

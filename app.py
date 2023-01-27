@@ -32,6 +32,7 @@ def create_polynom(xy_values):
         print("wir machen Hermit\n")
         hermite_polynom = Hermite()
         herm_coef = hermite_polynom.hermite_divided_differences(x_values, y_values, xy_values)
+        print("herm_coef: ", herm_coef)
         standard_form_polynom_coef = util.generate_polynom_coefficients(
             herm_coef, x_values)
         standard_form_polynom_coef = util.round_list(
@@ -65,6 +66,7 @@ def create_polynom(xy_values):
         poly_coeffs = util.round_list(poly_coeffs, 3)
         pretty_newt = "Newton: " + util.create_string_polynomial(
             poly_coeffs)
+
 
         return [pretty_newt, pretty_polynom]
 
