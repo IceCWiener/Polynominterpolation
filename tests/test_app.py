@@ -55,9 +55,20 @@ class TestApp(unittest.TestCase):
         self.assertEqual(expected, util.create_string_polynomial(coeffiecients))
 
 
-    def test_should_return_polynom_when_newton(self):
+    def test_should_return_polynom_when_hermite(self):
         xy_values = [(0, 0), (0, 0), (1, 1), (1, 3)]
         expected = ['Hermite: p(x) = (1.0)*x^3 + \n']
+        result = create_polynom(xy_values)
+        self.assertEqual(expected, result)
+
+    def test_should_return_polynom_when_Lagrange(self):
+        xy_values = [(1, 5), (2, 0), (3, -4)]
+        expected = ['Newton: p(x) = (0.5)*x^2 + (-6.5)*x  + (11.0)',
+                    'Lagrange: '
+                    'L(x) = (3.0) + (-2.5)*x + (0.5)*x^2\n'
+                    'L(x) = (-3.0) + (+4.0)*x + (-1.0)*x^2\n'
+                    'L(x) = (1.0) + (-1.5)*x + (0.5)*x^2\n'
+                    'p(x) = (0.5)*x^2 + (-6.5)*x  + (11.0)\n']
         result = create_polynom(xy_values)
         self.assertEqual(expected, result)
 

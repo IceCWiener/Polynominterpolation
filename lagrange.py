@@ -29,13 +29,18 @@ class Lagrange:
     # Li-function erstellen = li_function / li_x_wert
     def create_Li_function(self, n: int, alle_li_function: list[float], alle_li_x_werte: list):
         Li_function = []
+        Li_base = []
         Li_function_teil = 0
 
         for i in range(n):
+
             for j in range(n):
                 Li_function_teil = alle_li_function[j+(i*n)] / alle_li_x_werte[i]
                 Li_function.append(Li_function_teil)
-        
+                Li_base.append(Li_function_teil)
+            print(f'L{i}(x) = ', Li_base)
+            Li_base = []
+
         return Li_function
 
     # Polynom berechnen mit Stützwerten * Li Werte 

@@ -50,14 +50,16 @@ def create_polynom(xy_values):
         lagrange_polynom = Lagrange()
         li_function = lagrange_polynom.create_li_function(
             x_values)
+        print("li_function: ", li_function)
         Li_function = lagrange_polynom.create_Li_function(
             xy_len, li_function[0], li_function[1])
+
         polynom = lagrange_polynom.calculate_polynom(
             xy_len, y_values, Li_function)
         norm_poly = lagrange_polynom.normalform_poly(xy_len, polynom)
         norm_poly = util.round_list(norm_poly, 3)
-        pretty_polynom = "Lagrange: " + util.create_string_polynomial(
-            norm_poly) + "\n"
+        print("Lagrange: ")
+        pretty_polynom = util.create_string_polynomial(norm_poly) + "\n"
 
         # Newton
         newt_coeffs = newt.newton_div_diff(x_values, y_values)
