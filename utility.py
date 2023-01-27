@@ -89,18 +89,27 @@ class Utility:
         return result_pol
 
     def create_string_polynomial(self, coeffs):
-        str_poly = ""
         degree = len(coeffs) - 1
         coeffs = self.flip_array(coeffs)
         str_poly = "p(x) = "
 
         for i in coeffs:
             if degree > 1:
+                if str(i) == "0.0":
+                    degree = degree - 1
+                    continue
                 str_poly = str_poly + \
                     "(" + str(i) + ")*x^" + str(degree) + " + "
+
             elif degree == 1:
+                if str(i) == "0.0":
+                    degree = degree - 1
+                    continue
                 str_poly = str_poly + "(" + str(i) + ")*x "
             else:
+                if str(i) == "0.0":
+                    degree = degree - 1
+                    continue
                 str_poly = str_poly + " + (" + str(i) + ")"
 
             degree = degree - 1

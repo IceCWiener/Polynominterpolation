@@ -57,16 +57,6 @@ class TestHermite(unittest.TestCase):
         sampling_points = [(1, 1), (1, 4), (2, 3), (2, 1), (2, 2)]
         self.assertEqual(expected, util.get_y_values(sampling_points))
 
-    # def test_should_return_coefficients_when_sampling_point_y_value_zero(self):
-    #       util = Utility()
-    #     hermite = Hermite()
-    #     x_values = [1, 2, 10]
-    #     y_values = [1, 0, 4]
-    #     expected = [1/6, -3/2, 7/3]
-    #     xy_values = [(1, 1), (2, 0), (10, 4)]
-    #     result = hermite.divided_differences(x_values, y_values, xy_values)
-    #     self.assertEqual(expected, result)
-
 
 if __name__ == '__main__':
     unittest.main()
