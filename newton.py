@@ -5,7 +5,7 @@ class Newton:
 
     def __init__(self):
         #self.coefficients = self.newton_test()
-        self.ut = Utility()
+        self.util = Utility()
 
     # Erstellen von Newtons "Pyramide" um Koeffizienten/Multiplikatoren des Polynoms zu berechnen
     def newton_div_diff(self, x_values, y_values):
@@ -22,11 +22,15 @@ class Newton:
         # erste Spalte der Pyramide wird mit y-Werten gefüllt
         for i in range(n):
             pyramid_matrix[i][0] = float(y_values[i])
-
+        
+        #TODO: add base
+        #poly_base = []
         for j in range(1, n):
             for i in range(n-j):
                 # Spalten werden nacheinander von berechneten Koeffizienten gefüllt
-                pyramid_matrix[i][j] = (
-                    pyramid_matrix[i+1][j-1] - pyramid_matrix[i][j-1]) / (x_values[i+j] - x_values[i])
+                pyramid_matrix[i][j] = (pyramid_matrix[i+1][j-1] - pyramid_matrix[i][j-1]) / (x_values[i+j] - x_values[i]) 
+                #poly_base.append(pyramid_matrix[i][j])
+            #print(f'L{j} = ', self.util.create_string_polynomial(poly_base))
+            #poly_base = []
 
         return pyramid_matrix[0]  # erste Reihe wird zurückgegeben

@@ -73,10 +73,16 @@ def create_polynom(xy_values):
 
 if __name__ == '__main__':
     util = Utility()
+    run: bool = True
 
-    xy_values = collect_xy_values()
-    print(f'\nStützpunkte: {xy_values}\n')
-    polynom = create_polynom(xy_values)
-    for i in polynom:
-        print(i)
-    input("Enter drücken zum Beenden des Programms")
+    while(run):
+        xy_values = collect_xy_values()
+        print(f'\nStützpunkte: {xy_values}\n')
+        polynom = create_polynom(xy_values)
+
+        for i in polynom:
+            print(i)
+        
+        (user_input) = input("\nNeustart mit beliebiger Taste. \nSchreiben Sie 'exit' und drücker sie Return/Enter, um das Programm zu beenden.\n")
+        if(user_input == "exit"):
+            run = False
